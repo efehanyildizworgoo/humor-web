@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 const services = [
-  { slug: "sosyal-medya-yonetimi", icon: Megaphone, title: "Sosyal Medya Yönetimi", desc: "Markanızı sosyal medyada aktif ve etkileyici tutuyoruz.", image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80" },
+  { slug: "sosyal-medya-yonetimi", icon: Megaphone, title: "Sosyal Medya Yönetimi", desc: "Markanızı sosyal medyada aktif ve etkileyici tutuyoruz.", image: "https://images.unsplash.com/photo-1562577309-4932fdd64cd2?w=800&q=80" },
   { slug: "dijital-strateji", icon: Lightbulb, title: "Dijital Strateji", desc: "Veriye dayalı, sonuç odaklı dijital stratejiler kuruyoruz.", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" },
   { slug: "icerik-uretimi", icon: PenTool, title: "İçerik Üretimi", desc: "Yaratıcı ve özgün içeriklerle fark yaratıyoruz.", image: "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&q=80" },
   { slug: "reklam-yonetimi", icon: BarChart3, title: "Reklam Yönetimi", desc: "Dijital reklamlarınızı en verimli şekilde yönetiyoruz.", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" },

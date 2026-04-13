@@ -22,7 +22,7 @@ const services = [
     title: "Sosyal Medya Yönetimi",
     keywords: ["Instagram & TikTok", "LinkedIn & X", "Topluluk Yönetimi"],
     desc: "Markanızı sosyal medyada aktif ve etkileyici tutuyoruz. Planlama, içerik takvimi ve topluluk yönetimi.",
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1562577309-4932fdd64cd2?w=800&q=80",
   },
   {
     slug: "dijital-strateji",

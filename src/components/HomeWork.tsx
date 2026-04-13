@@ -19,7 +19,7 @@ const projects = [
   {
     title: "Bloom Cosmetics Sosyal Medya",
     category: "Sosyal Medya",
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1562577309-4932fdd64cd2?w=800&q=80",
   },
   {
     title: "NovaTech Reels Serisi",
