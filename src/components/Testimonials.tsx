@@ -23,7 +23,7 @@ const testimonials = [
   {
     name: "Elif Başaran",
     title: "Marka Müdürü, GreenPeak",
-    text: "Lansman kampanyamızı sıfırdan tasarladılar. Strateji, içerik, reklam yönetimi — her şey tek elden ve kusursuzdu.",
+    text: "Lansman kampanyamızı sıfırdan tasarladılar. Strateji, içerik, reklam yönetimi, her şey tek elden ve kusursuzdu.",
   },
   {
     name: "Burak Özkan",
@@ -33,7 +33,7 @@ const testimonials = [
   {
     name: "Selin Aydın",
     title: "İletişim Uzmanı, NovaTech",
-    text: "Reels serimiz viral oldu — 2 milyonun üzerinde organik görüntülenme aldık. Humor Creative gerçekten işini biliyor.",
+    text: "Reels serimiz viral oldu, 2 milyonun üzerinde organik görüntülenme aldık. Humor Creative gerçekten işini biliyor.",
   },
 ];
 

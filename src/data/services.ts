@@ -42,7 +42,7 @@ export const services: ServiceData[] = [
     aboutImage: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800&q=80",
     keywords: ["Instagram & TikTok", "LinkedIn & X", "Topluluk Yönetimi"],
     description: "Markanızı sosyal medyada aktif ve etkileyici tutuyoruz. Planlama, içerik takvimi, topluluk yönetimi ve performans raporlaması ile sosyal medyanızı uçtan uca yönetiyoruz.",
-    longDescription: "Sosyal medya artık sadece paylaşım yapmak değil — markanızın dijital vitrini. İçerik takvimi oluşturma, görsel ve metin üretimi, topluluk yönetimi, kriz iletişimi ve aylık performans raporlaması dahil uçtan uca yönetim sunuyoruz. Instagram, TikTok, LinkedIn, X (Twitter) ve Facebook platformlarında markanızı büyütüyoruz. Her platformun algoritmasını ve kullanıcı davranışlarını analiz ederek organik erişiminizi maksimize ediyoruz.",
+    longDescription: "Sosyal medya artık sadece paylaşım yapmak değil, markanızın dijital vitrini. İçerik takvimi oluşturma, görsel ve metin üretimi, topluluk yönetimi, kriz iletişimi ve aylık performans raporlaması dahil uçtan uca yönetim sunuyoruz. Instagram, TikTok, LinkedIn, X (Twitter) ve Facebook platformlarında markanızı büyütüyoruz. Her platformun algoritmasını ve kullanıcı davranışlarını analiz ederek organik erişiminizi maksimize ediyoruz.",
     whyUs: "Her marka için kopyala-yapıştır içerik üretmiyoruz. Markanızın DNA'sını anlıyor, sektörünüze ve hedef kitlenize özel strateji geliştiriyoruz. Aylık ortalama %200+ etkileşim artışı sağlıyoruz.",
     idealFor: ["E-ticaret markaları", "Yerel işletmeler", "Kurumsal firmalar", "Kişisel markalar", "Startuplar"],
     features: [
@@ -150,10 +150,10 @@ export const services: ServiceData[] = [
       "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&q=80",
     ],
     testimonials: [
-      { name: "Selin Aydın", title: "İletişim Uzmanı, NovaTech", text: "Reels serimiz viral oldu — 2 milyonun üzerinde organik görüntülenme aldık. İçerik kalitesi inanılmaz." },
+      { name: "Selin Aydın", title: "İletişim Uzmanı, NovaTech", text: "Reels serimiz viral oldu, 2 milyonun üzerinde organik görüntülenme aldık. İçerik kalitesi inanılmaz." },
       { name: "Ayşe Kara", title: "Kurucu, Bloom Cosmetics", text: "Her paylaşım markanın ruhunu yansıtıyor. Tutarlı ve kreatif içeriklerle fark yaratıyorlar." },
     ],
-    bannerText: "İçerik kraldır — ama doğru içerik imparatordur. Markanıza özel, dikkat çeken içerikler üretelim.",
+    bannerText: "İçerik kraldır, ama doğru içerik imparatordur. Markanıza özel, dikkat çeken içerikler üretelim.",
     seoText: "Ankara içerik üretimi hizmeti sunan Humor Creative, sosyal medya görsel tasarımı, copywriting, Reels ve Shorts video üretimi, carousel post tasarımı, infografik hazırlama, blog yazarlığı ve SEO uyumlu içerik üretimi alanlarında profesyonel hizmet vermektedir. Marka kimliğine uygun, platforma özel, algoritma dostu ve hedef kitle odaklı içerikler üretiyoruz. Ankara içerik ajansı, sosyal medya içerik üretimi Ankara, görsel tasarım hizmeti, copywriting ajansı Ankara arayanlar için Humor Creative güvenilir çözüm ortağınızdır.",
   },
   {
@@ -246,12 +246,12 @@ export const services: ServiceData[] = [
     heroImage: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=1600&q=80",
     aboutImage: "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=800&q=80",
     keywords: ["Montaj", "Color Grading", "Motion Graphics"],
-    description: "Etkileyici kurguyla hikâyenizi anlatıyoruz. Post-prodüksiyonda her kareyi mükemmelleştiriyoruz.",
+    description: "Etkileyici kurguyla hikayenizi anlatıyoruz. Post-prodüksiyonda her kareyi mükemmelleştiriyoruz.",
     longDescription: "Ham çekim dosyalarınızı etkileyici bir hikayeye dönüştürüyoruz. Profesyonel montaj, sinematik color grading, motion graphics, alt yazı, ses düzenleme ve VFX hizmetleri sunuyoruz. Adobe Premiere Pro, DaVinci Resolve ve After Effects ile çalışıyoruz. Sosyal medya Reels'inden uzun metraj belgesele kadar her formatta kurgu yapıyoruz.",
     whyUs: "Sadece kesip yapıştırmıyoruz; her projede hikaye anlatımı, tempo ve duygusal etki odaklı çalışıyoruz. Hızlı teslimat ve sınırsız format desteği sunuyoruz.",
     idealFor: ["Çekim dosyalarını profesyonelce kurgulatmak isteyenler", "YouTube ve podcast içerik üreticileri", "Kurumsal video projeleri", "Düğün ve etkinlik videoları"],
     features: [
-      { title: "Montaj", text: "Profesyonel kurgu ile akıcı ve etkileyici hikâye anlatımı. Tempo ve ritim yönetimi." },
+      { title: "Montaj", text: "Profesyonel kurgu ile akıcı ve etkileyici hikaye anlatımı. Tempo ve ritim yönetimi." },
       { title: "Color Grading", text: "DaVinci Resolve ile sinematik renk düzeltme ve look oluşturma." },
       { title: "Motion Graphics", text: "After Effects ile animasyon, infografik, logo reveal ve alt yazı." },
       { title: "Ses Tasarımı", text: "Ses düzenleme, foley, müzik seçimi ve seslendirme entegrasyonu." },
@@ -369,7 +369,7 @@ export const services: ServiceData[] = [
     heroImage: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1600&q=80",
     aboutImage: "https://images.unsplash.com/photo-1517842645767-c639042777db?w=800&q=80",
     keywords: ["Kreatif Brief", "Storyboard", "Script"],
-    description: "Markanız için özgün senaryo ve hikâye geliştirme. Fikirden üretime kadar yaratıcı sürecin tamamı.",
+    description: "Markanız için özgün senaryo ve hikaye geliştirme. Fikirden üretime kadar yaratıcı sürecin tamamı.",
     longDescription: "Her başarılı video projesinin arkasında güçlü bir senaryo vardır. Reklam filmleri, tanıtım videoları, sosyal medya serileri ve kurumsal filmler için profesyonel senaryo yazımı hizmeti sunuyoruz. Markanızın mesajını, hedef kitlenizin dilini ve platformun gereksinimlerini bilen senaristlerimiz, etkili ve akılda kalıcı hikayeler yazıyor.",
     whyUs: "Senaristlerimiz hem reklam hem sinema deneyimine sahip. Markanızın sesini bilen, hedef kitlenize hitap eden ve üretim sürecini anlayan senaryolar yazıyoruz.",
     idealFor: ["Reklam filmi çekecek markalar", "Sosyal medya video serileri", "Kurumsal tanıtım projeleri", "YouTube ve podcast içerik üreticileri"],
@@ -388,7 +388,7 @@ export const services: ServiceData[] = [
     faqs: [
       { q: "Senaryo yazımı ne kadar sürer?", a: "Basit projeler 3-5 iş günü, kapsamlı projeler 1-2 hafta sürer." },
       { q: "Kaç revizyon hakkım var?", a: "Standart 2 revizyon hakkınız var. Ek revizyonlar ayrıca fiyatlandırılır." },
-      { q: "Sadece senaryo mu yoksa prodüksiyon da dahil mi?", a: "Sadece senaryo yazımı da sunuyoruz. Prodüksiyonu da biz yapabiliriz — entegre paketlerimiz var." },
+      { q: "Sadece senaryo mu yoksa prodüksiyon da dahil mi?", a: "Sadece senaryo yazımı da sunuyoruz. Prodüksiyonu da biz yapabiliriz, entegre paketlerimiz var." },
     ],
     gallery: [
       "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80",

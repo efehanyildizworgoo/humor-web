@@ -20,7 +20,7 @@ const siteUrl = "https://www.humorkreatif.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Humor | Ankara Kreatif Ajans — Strateji, İçerik, Prodüksiyon",
+    default: "Humor | Ankara Kreatif Ajans, Strateji, İçerik, Prodüksiyon",
     template: "%s | Humor",
   },
   description:
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   alternates: { canonical: siteUrl },
   openGraph: {
     title: "Humor | Ankara Kreatif Ajans",
-    description: "Strateji, içerik, prodüksiyon. Sınır yok, kalıp yok — sadece iyi fikir var.",
+    description: "Strateji, içerik, prodüksiyon. Sınır yok, kalıp yok, sadece iyi fikir var.",
     url: siteUrl,
     siteName: "Humor",
     locale: "tr_TR",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Humor | Ankara Kreatif Ajans",
-    description: "Strateji, içerik, prodüksiyon. Sınır yok, kalıp yok — sadece iyi fikir var.",
+    description: "Strateji, içerik, prodüksiyon. Sınır yok, kalıp yok, sadece iyi fikir var.",
     images: ["/og-image.jpg"],
   },
 };

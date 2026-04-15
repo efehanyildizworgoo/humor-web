@@ -29,7 +29,7 @@ export default function HizmetlerPage() {
             Neler <span className="text-[var(--color-accent)]">Yapıyoruz?</span>
           </h1>
           <p className="mt-6 max-w-2xl mx-auto text-white/60 text-base sm:text-lg leading-relaxed">
-            Stratejiden üretime, fikirden yayına — markanızı bir adım öteye taşıyoruz.
+            Stratejiden üretime, fikirden yayına. Markanızı bir adım öteye taşıyoruz.
           </p>
         </div>
       </section>

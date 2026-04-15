@@ -61,7 +61,7 @@ const services = [
     icon: Video,
     title: "Video Kurgulama",
     keywords: ["Montaj", "Color Grading", "Motion Graphics"],
-    desc: "Etkileyici kurguyla hikâyenizi anlatıyoruz. Post-prodüksiyonda her kareyi mükemmelleştiriyoruz.",
+    desc: "Etkileyici kurguyla hikayenizi anlatıyoruz. Post-prodüksiyonda her kareyi mükemmelleştiriyoruz.",
     image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80",
   },
   {
@@ -85,7 +85,7 @@ const services = [
     icon: FileText,
     title: "Senaryo Yazımı",
     keywords: ["Kreatif Brief", "Storyboard", "Script"],
-    desc: "Markanız için özgün senaryo ve hikâye geliştirme. Fikirden üretime kadar yaratıcı sürecin tamamı.",
+    desc: "Markanız için özgün senaryo ve hikaye geliştirme. Fikirden üretime kadar yaratıcı sürecin tamamı.",
     image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80",
   },
 ];

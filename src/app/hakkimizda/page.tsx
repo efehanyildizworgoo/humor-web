@@ -5,7 +5,7 @@ import Stats from "@/components/Stats";
 
 export const metadata: Metadata = {
   title: "Hakkımızda",
-  description: "Humor Creative — Ankara merkezli kreatif ajans. Stratejiden üretime, fikirden yayına kadar her aşamada yanınızdayız.",
+  description: "Humor Creative, Ankara merkezli kreatif ajans. Stratejiden üretime, fikirden yayına kadar her aşamada yanınızdayız.",
 };
 
 export default function HakkimizdaPage() {

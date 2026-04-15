@@ -24,10 +24,10 @@ const services = [
   { slug: "icerik-uretimi", icon: PenTool, title: "İçerik Üretimi", desc: "Yaratıcı ve özgün içeriklerle fark yaratıyoruz.", image: "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&q=80" },
   { slug: "reklam-yonetimi", icon: BarChart3, title: "Reklam Yönetimi", desc: "Dijital reklamlarınızı en verimli şekilde yönetiyoruz.", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" },
   { slug: "produksiyon", icon: Clapperboard, title: "Prodüksiyon", desc: "Profesyonel video ve fotoğraf prodüksiyonu.", image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80" },
-  { slug: "video-kurgulama", icon: Video, title: "Video Kurgulama", desc: "Etkileyici kurguyla hikâyenizi anlatıyoruz.", image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80" },
+  { slug: "video-kurgulama", icon: Video, title: "Video Kurgulama", desc: "Etkileyici kurguyla hikayenizi anlatıyoruz.", image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80" },
   { slug: "drone-cekimi", icon: Plane, title: "Drone Çekimi", desc: "Havadan çekimlerle farklı bir perspektif sunuyoruz.", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80" },
   { slug: "canli-yayin", icon: Radio, title: "Canlı Yayın", desc: "Profesyonel canlı yayın hizmeti ve yönetimi.", image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&q=80" },
-  { slug: "senaryo-yazimi", icon: FileText, title: "Senaryo Yazımı", desc: "Markanız için özgün senaryo ve hikâye geliştirme.", image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80" },
+  { slug: "senaryo-yazimi", icon: FileText, title: "Senaryo Yazımı", desc: "Markanız için özgün senaryo ve hikaye geliştirme.", image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80" },
 ];
 
 export default function ServicesCarousel() {

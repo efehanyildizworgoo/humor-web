@@ -27,7 +27,7 @@ export default function Hero() {
           transition={{ duration: 1.2, ease: "easeOut" }}
         >
           <p className="text-[var(--color-gold)] text-[11px] sm:text-[13px] tracking-[0.5em] mb-6">
-            CREATIVE AGENCY — ANKARA
+            CREATIVE AGENCY / ANKARA
           </p>
         </motion.div>
 
@@ -48,7 +48,7 @@ export default function Hero() {
           className="mt-8 max-w-xl text-white/70 text-sm sm:text-base leading-relaxed"
         >
           Sınır yok. Kalıp yok. Sadece iyi fikir var.<br />
-          Biz Humor&apos;uz — ortalığı karıştırıyoruz.
+          Biz Humor&apos;uz, ortalığı karıştırıyoruz.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -68,7 +68,7 @@ export default function Hero() {
             href="/portfolio"
             className="px-10 py-3.5 border border-white/30 text-white text-[13px] uppercase tracking-[0.2em] font-medium hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all duration-300 flex items-center justify-center gap-2"
           >
-            İşlerimizi Gör
+            Neler Yaptık?
           </a>
         </motion.div>
       </div>

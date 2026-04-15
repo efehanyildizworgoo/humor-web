@@ -21,7 +21,7 @@ export default function About() {
           >
             <div className="space-y-5 text-white/50 text-[15px] leading-relaxed">
               <p>
-                Humor Creative, Humor kuruluşunun kreatif ajans markasıdır. Uçuk kaçık fikirlerimizi zekâyla harmanlıyor, sınırları zorlayan işlere imza atıyoruz.
+                Humor çatısı altında, yeni nesil bir kreatif ajansız. Uçuk kaçık fikirlerimizi zekâyla harmanlıyor, sınırları zorlayan işlere imza atıyoruz.
               </p>
               <p>
                 &ldquo;Çok iyi iş çıkarmışlar!&rdquo; dedirten TV reklamlarına da, &ldquo;Kesin viral olur!&rdquo; gözüyle bakılan reelslere de aynı tutkuyla dokunuyoruz. Stratejiden üretime, fikirden yayına kadar her aşamada yanınızdayız.
@@ -48,7 +48,7 @@ export default function About() {
           >
             <div className="border border-[var(--color-border)] p-8 lg:p-12 space-y-6">
               <p className="text-white/50 text-[15px] leading-relaxed">
-                Markaların hikâyesini sadece anlatmakla yetinmiyoruz; onu hedef kitlenin gözlerini alamayacağı, yaşayan bir deneyime dönüştürüyoruz. Her platformda, her formatta — tutarlı, yaratıcı ve etkileyici.
+                Markaların hikayesini sadece anlatmakla yetinmiyoruz; onu hedef kitlenin gözlerini alamayacağı, yaşayan bir deneyime dönüştürüyoruz. Her platformda, her formatta, tutarlı, yaratıcı ve etkileyici.
               </p>
               <p className="text-white/50 text-[15px] leading-relaxed">
                 Dijital dünyada var olmak yetmez; fark edilmek, hatırlanmak ve tercih edilmek gerekir. Biz tam da bunun için varız. Veriye dayalı stratejilerle yaratıcılığı birleştiriyor, ölçülebilir sonuçlar üretiyoruz.

@@ -15,7 +15,7 @@ export default function Footer() {
             </div>
             <p className="text-white/30 text-[13px] leading-relaxed max-w-xs">
               Sınır yok. Kalıp yok. Sadece iyi fikir var.
-              Strateji, içerik, prodüksiyon — Ankara merkezli kreatif ajans.
+              Strateji, içerik, prodüksiyon. Ankara merkezli kreatif ajans.
             </p>
             <div className="flex gap-3 mt-4">
               <a href="https://instagram.com/humorajans" target="_blank" rel="noopener noreferrer" className="w-9 h-9 border border-white/10 rounded flex items-center justify-center text-white/30 hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/30 transition-all duration-300">
