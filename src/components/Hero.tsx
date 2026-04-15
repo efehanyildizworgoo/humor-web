@@ -74,12 +74,12 @@ export default function Hero() {
       </div>
 
       {/* Scroll Indicator */}
-      <motion.a
-        href="#about"
+      <motion.button
+        onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-white/40 hover:text-[var(--color-gold)] transition-colors"
+        className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-white/40 hover:text-[var(--color-gold)] transition-colors cursor-pointer"
       >
         <span className="text-[10px] uppercase tracking-[0.3em]">Keşfet</span>
         <motion.div
@@ -88,7 +88,7 @@ export default function Hero() {
         >
           <ChevronDown size={20} />
         </motion.div>
-      </motion.a>
+      </motion.button>
 
       {/* Logo Marquee */}
       <LogoMarquee />

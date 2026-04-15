@@ -10,7 +10,7 @@ export default function HomeAbout() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="relative py-20 lg:py-32">
+    <section id="about" className="relative py-20 lg:py-32">
       <div className="absolute inset-0 bg-gradient-to-b from-[#0d1220] via-[var(--color-surface)] to-[#0d1220]" />
 
       <div ref={ref} className="relative z-10 max-w-5xl mx-auto px-6 lg:px-12 text-center">
