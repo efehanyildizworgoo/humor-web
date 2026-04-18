@@ -4,10 +4,9 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const stats = [
-  { value: "50+", label: "Tamamlanan Proje" },
-  { value: "30+", label: "Mutlu Marka" },
-  { value: "1M+", label: "Toplam Erişim" },
-  { value: "∞", label: "Yaratıcı Fikir" },
+  { value: "80+", label: "Mutlu Marka" },
+  { value: "100M+", label: "Toplam Görüntüleme" },
+  { value: "300+", label: "Tamamlanan Proje" },
 ];
 
 export default function Stats() {
@@ -17,7 +16,7 @@ export default function Stats() {
   return (
     <section className="border-y border-[var(--color-border)] bg-[var(--color-surface)] py-16">
       <div ref={ref} className="max-w-5xl mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}

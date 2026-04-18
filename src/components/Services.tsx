@@ -68,8 +68,8 @@ const services = [
     slug: "drone-cekimi",
     icon: Plane,
     title: "Drone Çekimi",
-    keywords: ["8K Aerial", "Havadan Görüntüleme", "Emlak & İnşaat"],
-    desc: "Havadan çekimlerle farklı bir perspektif sunuyoruz. Profesyonel pilot ekibimizle her açıdan görüntüleme.",
+    keywords: ["DJI Inspire 4", "8K Aerial", "Havadan Görüntüleme"],
+    desc: "DJI Inspire 4 ile 8K havadan çekimlerle farklı bir perspektif sunuyoruz. Profesyonel pilot ekibimizle her açıdan görüntüleme.",
     image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80",
   },
   {

@@ -36,7 +36,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
           className="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-[0.9]"
-          style={{ fontFamily: "var(--font-display)" }}
+          style={{ fontFamily: "var(--font-brand)" }}
         >
           <span className="text-white">HUMOR</span>
         </motion.h1>
