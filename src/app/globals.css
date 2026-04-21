@@ -37,7 +37,7 @@
 :root {
   --font-brand: "Humor", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Humor", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Humor", var(--font-playfair), Georgia, serif;
+  --font-display: "Humor", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme inline {
@@ -50,7 +50,7 @@
   --color-surface-light: #1a2240;
   --color-border: #2a3158;
   --font-sans: "Humor", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Humor", var(--font-playfair), Georgia, serif;
+  --font-display: "Humor", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-brand: "Humor", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
