@@ -1,43 +1,11 @@
 @import "tailwindcss";
 
-/* Humor marka fontu (self-hosted — woff2 öncelikli, woff fallback) */
-@font-face {
-  font-family: "Humor";
-  src: url("/fonts/humor-font-regular.woff2") format("woff2"),
-       url("/fonts/humor-font-regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Humor";
-  src: url("/fonts/humor-font-semibold.woff2") format("woff2"),
-       url("/fonts/humor-font-semibold.woff") format("woff");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Humor";
-  src: url("/fonts/humor-font-bold.woff2") format("woff2"),
-       url("/fonts/humor-font-bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Humor";
-  src: url("/fonts/humor-font-black.woff2") format("woff2"),
-       url("/fonts/humor-font-black.woff") format("woff");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
+/* Marka fontu: Manrope (Google Fonts, next/font ile self-hosted) */
 
 :root {
-  --font-brand: "Humor", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Humor", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Humor", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-brand: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme inline {
@@ -49,9 +17,9 @@
   --color-surface: #111729;
   --color-surface-light: #1a2240;
   --color-border: #2a3158;
-  --font-sans: "Humor", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Humor", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-brand: "Humor", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-brand: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 }
 
 html,
