@@ -103,7 +103,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr" className="scroll-smooth overflow-x-hidden">
+    <html lang="tr" className={`scroll-smooth overflow-x-hidden ${manrope.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -111,7 +111,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${manrope.variable} font-sans bg-[#0d1220] text-[#e8e9f0] antialiased`}
+        className={`${manrope.variable} bg-[#0d1220] text-[#e8e9f0] antialiased`}
       >
         <Navbar />
         <main>{children}</main>
