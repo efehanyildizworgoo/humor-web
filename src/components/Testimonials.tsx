@@ -5,7 +5,17 @@ import { useRef } from "react";
 import { Quote } from "lucide-react";
 import type { PublicTestimonial } from "@/lib/queries/content";
 
-export default function Testimonials({ items }: { items: PublicTestimonial[] }) {
+export default function Testimonials({
+  items,
+  eyebrow = "Müşteri Yorumları",
+  title = "Neden",
+  titleHighlight = "Biz?",
+}: {
+  items: PublicTestimonial[];
+  eyebrow?: string;
+  title?: string;
+  titleHighlight?: string;
+}) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -25,13 +35,13 @@ export default function Testimonials({ items }: { items: PublicTestimonial[] }) 
           className="text-center mb-10 lg:mb-16 px-6"
         >
           <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4">
-            Müşteri Yorumları
+            {eyebrow}
           </p>
           <h2
             className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Neden <span className="text-[var(--color-accent)]">Biz?</span>
+            {title} <span className="text-[var(--color-accent)]">{titleHighlight}</span>
           </h2>
         </motion.div>
 

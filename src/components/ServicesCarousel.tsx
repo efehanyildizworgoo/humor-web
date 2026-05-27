@@ -7,7 +7,21 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Icon } from "@/lib/icons";
 import type { PublicServiceListItem } from "@/lib/queries/services";
 
-export default function ServicesCarousel({ items }: { items: PublicServiceListItem[] }) {
+export default function ServicesCarousel({
+  items,
+  eyebrow = "Hizmetlerimiz",
+  title = "Neler",
+  titleHighlight = "Yapıyoruz?",
+  ctaLabel = "Tüm Hizmetleri Gör",
+  ctaHref = "/hizmetler",
+}: {
+  items: PublicServiceListItem[];
+  eyebrow?: string;
+  title?: string;
+  titleHighlight?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}) {
   const services = items;
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -39,13 +53,13 @@ export default function ServicesCarousel({ items }: { items: PublicServiceListIt
           className="text-center mb-12 lg:mb-20"
         >
           <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4">
-            Hizmetlerimiz
+            {eyebrow}
           </p>
           <h2
             className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Neler <span className="text-[var(--color-accent)]">Yapıyoruz?</span>
+            {title} <span className="text-[var(--color-accent)]">{titleHighlight}</span>
           </h2>
         </motion.div>
 
@@ -146,10 +160,10 @@ export default function ServicesCarousel({ items }: { items: PublicServiceListIt
         {/* See All */}
         <div className="text-center mt-10">
           <Link
-            href="/hizmetler"
+            href={ctaHref}
             className="inline-flex items-center gap-2 px-8 py-3 border border-[var(--color-accent)]/40 text-[var(--color-accent)] text-[12px] uppercase tracking-[0.2em] hover:bg-[var(--color-accent)]/5 hover:border-[var(--color-accent)] transition-all duration-300"
           >
-            Tüm Hizmetleri Gör
+            {ctaLabel}
             <ArrowRight size={13} />
           </Link>
         </div>

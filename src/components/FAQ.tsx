@@ -5,7 +5,17 @@ import { useRef, useState } from "react";
 import { Plus, Minus } from "lucide-react";
 import type { PublicFaq } from "@/lib/queries/content";
 
-export default function FAQ({ items }: { items: PublicFaq[] }) {
+export default function FAQ({
+  items,
+  eyebrow = "SSS",
+  title = "Sıkça Sorulan",
+  titleHighlight = "Sorular",
+}: {
+  items: PublicFaq[];
+  eyebrow?: string;
+  title?: string;
+  titleHighlight?: string;
+}) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -25,13 +35,13 @@ export default function FAQ({ items }: { items: PublicFaq[] }) {
           className="text-center mb-12 lg:mb-20"
         >
           <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4">
-            SSS
+            {eyebrow}
           </p>
           <h2
             className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Sıkça Sorulan <span className="text-[var(--color-accent)]">Sorular</span>
+            {title} <span className="text-[var(--color-accent)]">{titleHighlight}</span>
           </h2>
         </motion.div>
 

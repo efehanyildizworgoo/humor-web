@@ -14,10 +14,11 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function HakkimizdaPage() {
-  const [stats, testimonials, c] = await Promise.all([
+  const [stats, testimonials, c, home] = await Promise.all([
     listStats(),
     listTestimonials(),
     getPageContent("hakkimizda"),
+    getPageContent("anasayfa"),
   ]);
 
   return (
@@ -36,7 +37,12 @@ export default async function HakkimizdaPage() {
         tagline={c["hakkimizda.about.tagline"]}
       />
       <Stats items={stats} />
-      <Testimonials items={testimonials} />
+      <Testimonials
+        items={testimonials}
+        eyebrow={home["home.testimonials_section.eyebrow"]}
+        title={home["home.testimonials_section.title"]}
+        titleHighlight={home["home.testimonials_section.title_highlight"]}
+      />
     </>
   );
 }

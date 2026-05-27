@@ -87,6 +87,26 @@ export const PAGES: PageDefinition[] = [
         ],
       },
       {
+        title: "Hizmetler Bölümü Başlığı",
+        description: "Anasayfada gözüken hizmet karuselinin başlığı.",
+        fields: [
+          { key: "home.services_section.eyebrow", label: "Üst etiket", type: "text", default: "Hizmetlerimiz" },
+          { key: "home.services_section.title", label: "Başlık (ilk kelime)", type: "text", default: "Neler" },
+          { key: "home.services_section.title_highlight", label: "Vurgulu kelime", type: "text", default: "Yapıyoruz?" },
+          { key: "home.services_section.cta_label", label: "Buton metni", type: "text", default: "Tüm Hizmetleri Gör" },
+          { key: "home.services_section.cta_href", label: "Buton linki", type: "text", default: "/hizmetler" },
+        ],
+      },
+      {
+        title: "Referanslar Bölümü Başlığı",
+        description: "Müşteri yorumları bölümünün başlığı (anasayfa + hakkımızda).",
+        fields: [
+          { key: "home.testimonials_section.eyebrow", label: "Üst etiket", type: "text", default: "Müşteri Yorumları" },
+          { key: "home.testimonials_section.title", label: "Başlık (ilk kelime)", type: "text", default: "Neden" },
+          { key: "home.testimonials_section.title_highlight", label: "Vurgulu kelime", type: "text", default: "Biz?" },
+        ],
+      },
+      {
         title: "Çağrı Bölümü (CTA)",
         fields: [
           { key: "home.cta.title", label: "Başlık (1. satır)", type: "text", default: "Bir fikrin mi var?" },
@@ -154,6 +174,15 @@ export const PAGES: PageDefinition[] = [
           { key: "hizmetler.hero.title_highlight", label: "Vurgulu kelime", type: "text", default: "Yapıyoruz?" },
           { key: "hizmetler.hero.subtitle", label: "Alt metin", type: "textarea", default: "Stratejiden üretime, fikirden yayına. Markanızı bir adım öteye taşıyoruz.", colSpan: 2 },
           { key: "hizmetler.hero.image", label: "Hero arka plan görseli", type: "image", default: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1600&q=80", colSpan: 2 },
+        ],
+      },
+      {
+        title: "S.S.S. Bölümü Başlığı",
+        description: "Hizmetler sayfasının altındaki SSS bloğu başlığı.",
+        fields: [
+          { key: "hizmetler.faq_section.eyebrow", label: "Üst etiket", type: "text", default: "SSS" },
+          { key: "hizmetler.faq_section.title", label: "Başlık (ilk kelime)", type: "text", default: "Sıkça Sorulan" },
+          { key: "hizmetler.faq_section.title_highlight", label: "Vurgulu kelime", type: "text", default: "Sorular" },
         ],
       },
     ],

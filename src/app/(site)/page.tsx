@@ -46,9 +46,21 @@ export default async function Home() {
         linkLabel={c["home.about.link_label"]}
         linkHref={c["home.about.link_href"]}
       />
-      <ServicesCarousel items={services} />
+      <ServicesCarousel
+        items={services}
+        eyebrow={c["home.services_section.eyebrow"]}
+        title={c["home.services_section.title"]}
+        titleHighlight={c["home.services_section.title_highlight"]}
+        ctaLabel={c["home.services_section.cta_label"]}
+        ctaHref={c["home.services_section.cta_href"]}
+      />
       <Stats items={stats} />
-      <Testimonials items={testimonials} />
+      <Testimonials
+        items={testimonials}
+        eyebrow={c["home.testimonials_section.eyebrow"]}
+        title={c["home.testimonials_section.title"]}
+        titleHighlight={c["home.testimonials_section.title_highlight"]}
+      />
       <HomeCTA
         title={c["home.cta.title"]}
         titleHighlight={c["home.cta.title_highlight"]}

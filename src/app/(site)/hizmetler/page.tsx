@@ -37,7 +37,12 @@ export default async function HizmetlerPage() {
       />
 
       <Services items={services} />
-      <FAQ items={faqs} />
+      <FAQ
+        items={faqs}
+        eyebrow={c["hizmetler.faq_section.eyebrow"]}
+        title={c["hizmetler.faq_section.title"]}
+        titleHighlight={c["hizmetler.faq_section.title_highlight"]}
+      />
       <HomeCTA
         title={home["home.cta.title"]}
         titleHighlight={home["home.cta.title_highlight"]}
