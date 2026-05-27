@@ -5,56 +5,76 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import { listNavItems, listFooterSections } from "@/lib/queries/content";
 import { listPublishedServices } from "@/lib/queries/services";
 import { readSettings } from "@/lib/settings";
+import { getPageContent } from "@/lib/pageContent";
 
 const siteUrl = "https://www.humorkreatif.com";
 
-export const metadata: Metadata = {
-  keywords: [
-    "kreatif ajans ankara",
-    "sosyal medya yönetimi",
-    "dijital strateji",
-    "içerik üretimi",
-    "reklam yönetimi",
-    "prodüksiyon ankara",
-    "drone çekimi",
-    "video kurgulama",
-    "canlı yayın",
-    "senaryo yazımı",
-    "humor creative",
-    "humor kreatif",
-    "ankara reklam ajansı",
-  ],
-  authors: [{ name: "Humor" }],
-  creator: "Humor",
-  publisher: "Humor",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+const KEYWORDS = [
+  "kreatif ajans ankara",
+  "sosyal medya yönetimi",
+  "dijital strateji",
+  "içerik üretimi",
+  "reklam yönetimi",
+  "prodüksiyon ankara",
+  "drone çekimi",
+  "video kurgulama",
+  "canlı yayın",
+  "senaryo yazımı",
+  "humor creative",
+  "humor kreatif",
+  "ankara reklam ajansı",
+];
+
+export async function generateMetadata(): Promise<Metadata> {
+  const brand = await getPageContent("marka");
+  const ogImage = brand["brand.og_image"] || "/og-image.jpg";
+  const favicon = brand["brand.favicon"] || "/favicon.ico";
+  const appleIcon = brand["brand.apple_icon"] || "";
+  const siteName = brand["brand.site_name"] || "Humor";
+  const ogTitle = brand["brand.og_title"] || "Humor | Ankara Kreatif Ajans";
+  const ogDescription =
+    brand["brand.og_description"] ||
+    "Strateji, içerik, prodüksiyon. Sınır yok, kalıp yok, sadece iyi fikir var.";
+
+  return {
+    keywords: KEYWORDS,
+    authors: [{ name: siteName }],
+    creator: siteName,
+    publisher: siteName,
+    robots: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
-  },
-  alternates: { canonical: siteUrl },
-  openGraph: {
-    title: "Humor | Ankara Kreatif Ajans",
-    description: "Strateji, içerik, prodüksiyon. Sınır yok, kalıp yok, sadece iyi fikir var.",
-    url: siteUrl,
-    siteName: "Humor",
-    locale: "tr_TR",
-    type: "website",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Humor" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Humor | Ankara Kreatif Ajans",
-    description: "Strateji, içerik, prodüksiyon. Sınır yok, kalıp yok, sadece iyi fikir var.",
-    images: ["/og-image.jpg"],
-  },
-};
+    alternates: { canonical: siteUrl },
+    icons: {
+      icon: favicon,
+      shortcut: favicon,
+      ...(appleIcon ? { apple: appleIcon } : {}),
+    },
+    openGraph: {
+      title: ogTitle,
+      description: ogDescription,
+      url: siteUrl,
+      siteName,
+      locale: "tr_TR",
+      type: "website",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: siteName }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ogTitle,
+      description: ogDescription,
+      images: [ogImage],
+    },
+  };
+}
 
 export const dynamic = "force-dynamic";
 
@@ -63,7 +83,7 @@ export default async function SiteLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [navLinks, footerSections, services, settings] = await Promise.all([
+  const [navLinks, footerSections, services, settings, brand] = await Promise.all([
     listNavItems(),
     listFooterSections(),
     listPublishedServices(),
@@ -77,7 +97,12 @@ export default async function SiteLayout({
       "social.twitter",
       "social.youtube",
     ]),
+    getPageContent("marka"),
   ]);
+
+  const logoUrl = brand["brand.logo_white"] || "/logo-white.svg";
+  const siteName = brand["brand.site_name"] || "Humor";
+  const ogImage = brand["brand.og_image"] || "/og-image.jpg";
 
   const megaServices = services.map((s) => ({
     icon: s.icon,
@@ -97,15 +122,15 @@ export default async function SiteLayout({
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": `${siteUrl}/#organization`,
-    name: "Humor",
-    alternateName: "Humor Kreatif Ajans",
+    name: siteName,
+    alternateName: `${siteName} Kreatif Ajans`,
     description: "Ankara merkezli kreatif ajans. Sosyal medya, dijital strateji, içerik üretimi ve prodüksiyon hizmetleri.",
     url: siteUrl,
     telephone: (settings["contact.phone"] as string) || undefined,
     email: (settings["contact.email"] as string) || undefined,
     address: (settings["contact.address"] as string) || undefined,
     priceRange: "$$",
-    image: `${siteUrl}/og-image.jpg`,
+    image: ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}`,
     sameAs: Object.values(social).filter(Boolean),
   };
 
@@ -115,13 +140,15 @@ export default async function SiteLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Navbar navLinks={navLinks} megaServices={megaServices} />
+      <Navbar navLinks={navLinks} megaServices={megaServices} logoUrl={logoUrl} siteName={siteName} />
       <main>{children}</main>
       <Footer
         navLinks={navLinks}
         sections={footerSections}
         social={social}
         address={(settings["contact.address"] as string) || undefined}
+        logoUrl={logoUrl}
+        siteName={siteName}
       />
       <WhatsAppButton
         phone={

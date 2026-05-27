@@ -31,6 +31,33 @@ export type PageDefinition = {
 // PAGE DEFINITIONS
 // =====================================================================
 export const PAGES: PageDefinition[] = [
+  // -------------------------- MARKA / GENEL --------------------------
+  {
+    slug: "marka",
+    title: "Marka & Genel",
+    description: "Logo, favicon, paylaşım görseli ve site geneli marka kimliği.",
+    publicHref: "/",
+    groups: [
+      {
+        title: "Logo & Favicon",
+        fields: [
+          { key: "brand.site_name", label: "Site adı", type: "text", default: "Humor", hint: "Tarayıcı sekmesi ve OG/Twitter cardlarda" },
+          { key: "brand.logo_white", label: "Logo (beyaz / koyu zemin)", type: "image", default: "/logo-white.svg", hint: "Navbar ve footer'da kullanılır", colSpan: 2 },
+          { key: "brand.favicon", label: "Favicon", type: "image", default: "/favicon.ico", hint: "Tarayıcı sekme ikonu (.ico / .png — kare, en az 32×32)", colSpan: 2 },
+          { key: "brand.apple_icon", label: "Apple Touch Icon", type: "image", default: "", hint: "iOS ana ekran ikonu (180×180 önerilir)", colSpan: 2 },
+        ],
+      },
+      {
+        title: "Sosyal Paylaşım (Open Graph / Twitter)",
+        fields: [
+          { key: "brand.og_image", label: "Paylaşım görseli", type: "image", default: "/og-image.jpg", hint: "1200×630 — link paylaşıldığında WhatsApp/Twitter/LinkedIn'de görünür", colSpan: 2 },
+          { key: "brand.og_title", label: "Paylaşım başlığı", type: "text", default: "Humor | Ankara Kreatif Ajans", colSpan: 2 },
+          { key: "brand.og_description", label: "Paylaşım açıklaması", type: "textarea", default: "Strateji, içerik, prodüksiyon. Sınır yok, kalıp yok, sadece iyi fikir var.", colSpan: 2 },
+        ],
+      },
+    ],
+  },
+
   // -------------------------- ANASAYFA --------------------------
   {
     slug: "anasayfa",

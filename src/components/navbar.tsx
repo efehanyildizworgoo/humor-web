@@ -12,9 +12,13 @@ type MegaService = { icon: string; title: string; desc: string; href: string };
 export default function Navbar({
   navLinks,
   megaServices,
+  logoUrl = "/logo-white.svg",
+  siteName = "Humor",
 }: {
   navLinks: NavLink[];
   megaServices: MegaService[];
+  logoUrl?: string;
+  siteName?: string;
 }) {
   const hasServicesMega = megaServices.length > 0;
   const [scrolled, setScrolled] = useState(false);
@@ -52,7 +56,8 @@ export default function Navbar({
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <img src="/logo-white.svg" alt="Humor" className="h-5 w-auto" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={logoUrl} alt={siteName} className="h-5 w-auto" />
           </Link>
 
           {/* Desktop Links */}

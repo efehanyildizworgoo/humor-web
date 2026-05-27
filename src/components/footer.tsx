@@ -11,11 +11,15 @@ export default function Footer({
   sections,
   social,
   address,
+  logoUrl = "/logo-white.svg",
+  siteName = "Humor",
 }: {
   navLinks: FooterLink[];
   sections: FooterSection[];
   social: { instagram?: string; youtube?: string; linkedin?: string; twitter?: string };
   address?: string;
+  logoUrl?: string;
+  siteName?: string;
 }) {
   const hasSections = sections.length > 0;
 
@@ -27,7 +31,7 @@ export default function Footer({
           <div>
             <div className="mb-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-white.svg" alt="Humor" className="h-4 w-auto" />
+              <img src={logoUrl} alt={siteName} className="h-4 w-auto" />
             </div>
             <p className="text-white/30 text-[13px] leading-relaxed max-w-xs">
               Sınır yok. Kalıp yok. Sadece iyi fikir var.
