@@ -7,6 +7,7 @@ import {
   listPublishedProjects,
   listPublishedProjectSlugs,
 } from "@/lib/queries/projects";
+import { getPageContent } from "@/lib/pageContent";
 import { htmlToPlainText } from "@/lib/sanitize";
 
 export const dynamic = "force-dynamic";
@@ -42,7 +43,10 @@ export default async function ProjectDetailPage({
   const project = await getProjectBySlug(slug);
   if (!project) notFound();
 
-  const all = await listPublishedProjects();
+  const [all, c] = await Promise.all([
+    listPublishedProjects(),
+    getPageContent("portfolio"),
+  ]);
   const otherProjects = all.filter((p) => p.slug !== slug).slice(0, 3);
 
   return (
@@ -65,26 +69,26 @@ export default async function ProjectDetailPage({
             {project.title}
           </h1>
           <div className="mt-4 flex flex-wrap gap-4 text-white/40 text-[13px]">
-            <span>Müşteri: <span className="text-white/70">{project.client}</span></span>
-            <span>Yıl: <span className="text-white/70">{project.year}</span></span>
+            <span>{c["project_detail.client_label"]} <span className="text-white/70">{project.client}</span></span>
+            <span>{c["project_detail.year_label"]} <span className="text-white/70">{project.year}</span></span>
           </div>
         </div>
       </section>
 
-      <ProjectPageClient project={project} />
+      <ProjectPageClient project={project} content={c} />
 
       {/* Other Projects */}
       <section className="relative py-20 lg:py-28">
         <div className="absolute inset-0 bg-[#0d1220]" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
           <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4 text-center">
-            Diğer Projeler
+            {c["project_detail.other.eyebrow"]}
           </p>
           <h2
             className="text-3xl sm:text-4xl font-bold text-center mb-12"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Daha Fazlasını Keşfedin
+            {c["project_detail.other.title"]}
           </h2>
           <div className="grid sm:grid-cols-3 gap-4">
             {otherProjects.map((p) => (

@@ -185,6 +185,78 @@ export const PAGES: PageDefinition[] = [
           { key: "hizmetler.faq_section.title_highlight", label: "Vurgulu kelime", type: "text", default: "Sorular" },
         ],
       },
+      {
+        title: "Hizmet Detayı — Hero & CTA Butonları",
+        description: "Her hizmetin kendi detay sayfasındaki sabit etiketler.",
+        fields: [
+          { key: "service_detail.hero.eyebrow", label: "Hero üst etiket", type: "text", default: "Hizmetlerimiz" },
+          { key: "service_detail.hero.cta_primary", label: "Birincil buton", type: "text", default: "Detaylı Bilgi" },
+          { key: "service_detail.hero.cta_whatsapp", label: "WhatsApp buton", type: "text", default: "WhatsApp" },
+        ],
+      },
+      {
+        title: "Hizmet Detayı — Hakkında Bloğu",
+        fields: [
+          { key: "service_detail.logos.label", label: "Logo şeridi etiketi", type: "text", default: "Güvenilir Markalarla Çalışıyoruz", colSpan: 2 },
+          { key: "service_detail.about.title", label: "Başlık (ilk kısım)", type: "text", default: "Markanızı bir adım" },
+          { key: "service_detail.about.title_highlight", label: "Vurgulu kelime", type: "text", default: "öne taşıyoruz." },
+          { key: "service_detail.about.why_us_label", label: "\"Neden Humor?\" etiketi", type: "text", default: "Neden Humor?" },
+          { key: "service_detail.about.cta", label: "Buton metni", type: "text", default: "Detaylı Bilgi" },
+          { key: "service_detail.about.stat_value", label: "İstatistik değeri", type: "text", default: "200+" },
+          { key: "service_detail.about.stat_label", label: "İstatistik etiketi", type: "text", default: "Mutlu Müşteri" },
+        ],
+      },
+      {
+        title: "Hizmet Detayı — Özellikler Bölümü",
+        fields: [
+          { key: "service_detail.features.eyebrow", label: "Üst etiket", type: "text", default: "Hizmet Kapsamı" },
+          { key: "service_detail.features.title", label: "Başlık", type: "text", default: "Bu hizmette neler" },
+          { key: "service_detail.features.title_highlight", label: "Vurgulu kelime", type: "text", default: "sunuyoruz?" },
+          { key: "service_detail.features.cta", label: "Buton metni", type: "text", default: "Hemen Başlayın" },
+        ],
+      },
+      {
+        title: "Hizmet Detayı — Süreç Bölümü",
+        fields: [
+          { key: "service_detail.process.eyebrow", label: "Üst etiket", type: "text", default: "Süreç" },
+          { key: "service_detail.process.title", label: "Başlık", type: "text", default: "Nasıl" },
+          { key: "service_detail.process.title_highlight", label: "Vurgulu kelime", type: "text", default: "Çalışıyoruz?" },
+        ],
+      },
+      {
+        title: "Hizmet Detayı — Referanslar Bölümü",
+        fields: [
+          { key: "service_detail.testimonials.eyebrow", label: "Üst etiket", type: "text", default: "Müşteri Yorumları" },
+          { key: "service_detail.testimonials.title", label: "Başlık", type: "text", default: "Müşterilerimiz Ne" },
+          { key: "service_detail.testimonials.title_highlight", label: "Vurgulu kelime", type: "text", default: "Diyor?" },
+        ],
+      },
+      {
+        title: "Hizmet Detayı — SSS Bölümü",
+        fields: [
+          { key: "service_detail.faq.eyebrow", label: "Üst etiket", type: "text", default: "SSS" },
+          { key: "service_detail.faq.title", label: "Başlık", type: "text", default: "Sıkça Sorulan" },
+          { key: "service_detail.faq.title_highlight", label: "Vurgulu kelime", type: "text", default: "Sorular" },
+          { key: "service_detail.faq.cta", label: "Buton metni", type: "text", default: "Hemen İletişime Geçin" },
+        ],
+      },
+      {
+        title: "Hizmet Detayı — Diğer Hizmetler",
+        fields: [
+          { key: "service_detail.other.eyebrow", label: "Üst etiket", type: "text", default: "Diğer Hizmetlerimiz" },
+          { key: "service_detail.other.title", label: "Başlık", type: "text", default: "Daha Fazlasını Keşfedin" },
+        ],
+      },
+      {
+        title: "Hizmet Detayı — Alt CTA",
+        fields: [
+          { key: "service_detail.cta.title_after_service", label: "Servis adından sonraki kısım", type: "text", default: "için", hint: "Örn: \"Sosyal Medya Yönetimi için teklif alın.\"" },
+          { key: "service_detail.cta.title_highlight", label: "Vurgulu kelime", type: "text", default: "teklif alın." },
+          { key: "service_detail.cta.subtitle", label: "Alt metin", type: "textarea", default: "Projenizi anlatın, size özel bir teklif hazırlayalım.", colSpan: 2 },
+          { key: "service_detail.cta.primary", label: "Birincil buton", type: "text", default: "İletişime Geç" },
+          { key: "service_detail.cta.whatsapp", label: "WhatsApp buton", type: "text", default: "WhatsApp'tan Yaz" },
+        ],
+      },
     ],
   },
 
@@ -202,6 +274,34 @@ export const PAGES: PageDefinition[] = [
           { key: "portfolio.hero.title", label: "Başlık", type: "text", default: "İşlerimiz" },
           { key: "portfolio.hero.subtitle", label: "Alt metin", type: "textarea", default: "Her projede iz bırakan, konuşulan ve hatırlanan işler.", colSpan: 2 },
           { key: "portfolio.hero.image", label: "Hero arka plan görseli", type: "image", default: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1600&q=80", colSpan: 2 },
+        ],
+      },
+      {
+        title: "Proje Detayı — Etiketler",
+        description: "Her proje detay sayfasındaki sabit etiketler.",
+        fields: [
+          { key: "project_detail.client_label", label: "Müşteri etiketi (hero)", type: "text", default: "Müşteri:" },
+          { key: "project_detail.year_label", label: "Yıl etiketi (hero)", type: "text", default: "Yıl:" },
+          { key: "project_detail.challenge_label", label: "\"Zorluk\" etiketi", type: "text", default: "Zorluk" },
+          { key: "project_detail.solution_label", label: "\"Çözüm\" etiketi", type: "text", default: "Çözüm" },
+          { key: "project_detail.services_used_label", label: "\"Kullanılan Hizmetler\" etiketi", type: "text", default: "Kullanılan Hizmetler", colSpan: 2 },
+          { key: "project_detail.client_box_label", label: "Yan kutu müşteri etiketi", type: "text", default: "Müşteri" },
+          { key: "project_detail.cta_label", label: "Yan kutu buton metni", type: "text", default: "Benzer Proje İçin Teklif Al", colSpan: 2 },
+        ],
+      },
+      {
+        title: "Proje Detayı — Sonuçlar Bölümü",
+        fields: [
+          { key: "project_detail.results.eyebrow", label: "Üst etiket", type: "text", default: "Sonuçlar" },
+          { key: "project_detail.results.title", label: "Başlık", type: "text", default: "Elde Edilen" },
+          { key: "project_detail.results.title_highlight", label: "Vurgulu kelime", type: "text", default: "Başarılar" },
+        ],
+      },
+      {
+        title: "Proje Detayı — Diğer Projeler",
+        fields: [
+          { key: "project_detail.other.eyebrow", label: "Üst etiket", type: "text", default: "Diğer Projeler" },
+          { key: "project_detail.other.title", label: "Başlık", type: "text", default: "Daha Fazlasını Keşfedin" },
         ],
       },
     ],

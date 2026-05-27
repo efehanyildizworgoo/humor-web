@@ -49,7 +49,14 @@ const referenceLogos = [
   { src: "/logos/ankara-bbsk.png", alt: "Ankara Büyükşehir Belediyesi" },
 ];
 
-export default function ServicePageClient({ service }: { service: ServiceClientData }) {
+export default function ServicePageClient({
+  service,
+  content,
+}: {
+  service: ServiceClientData;
+  content: Record<string, string>;
+}) {
+  const c = content;
   const aboutRef = useRef(null);
   const aboutInView = useInView(aboutRef, { once: true, margin: "-80px" });
   const featRef = useRef(null);
@@ -69,7 +76,7 @@ export default function ServicePageClient({ service }: { service: ServiceClientD
         <div className="absolute inset-0 bg-[#0d1220]" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
           <p className="text-center text-white/20 text-[11px] uppercase tracking-[0.4em] mb-8">
-            Güvenilir Markalarla Çalışıyoruz
+            {c["service_detail.logos.label"]}
           </p>
           <div className="overflow-hidden">
             <div className="marquee-track flex w-max items-center gap-14 sm:gap-20">
@@ -111,11 +118,11 @@ export default function ServicePageClient({ service }: { service: ServiceClientD
                 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                Markanızı bir adım <span className="text-[var(--color-accent)]">öne taşıyoruz.</span>
+                {c["service_detail.about.title"]} <span className="text-[var(--color-accent)]">{c["service_detail.about.title_highlight"]}</span>
               </h2>
               <SafeHtml html={service.longDescription} className="text-[15px] mb-6" />
               <div className="p-5 border-l-2 border-[var(--color-accent)] bg-white/[0.02] rounded-r-lg mb-8">
-                <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.3em] mb-2 font-semibold">Neden Humor?</p>
+                <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.3em] mb-2 font-semibold">{c["service_detail.about.why_us_label"]}</p>
                 <SafeHtml html={service.whyUs} className="text-[14px]" />
               </div>
               <div className="flex flex-wrap gap-2 mb-8">
@@ -129,7 +136,7 @@ export default function ServicePageClient({ service }: { service: ServiceClientD
                 href="/iletisim"
                 className="inline-flex items-center gap-2 text-white text-[13px] uppercase tracking-[0.2em] px-7 py-3.5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-light)] transition-all duration-300 rounded group"
               >
-                Detaylı Bilgi
+                {c["service_detail.about.cta"]}
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </a>
             </motion.div>
@@ -150,8 +157,8 @@ export default function ServicePageClient({ service }: { service: ServiceClientD
               </div>
               {/* Floating accent card */}
               <div className="absolute -bottom-4 left-4 sm:-bottom-6 sm:-left-6 bg-[var(--color-accent)] text-black px-5 py-3 sm:px-6 sm:py-4 rounded-xl shadow-2xl">
-                <p className="text-[28px] font-bold" style={{ fontFamily: "var(--font-display)" }}>200+</p>
-                <p className="text-[11px] uppercase tracking-[0.2em] font-medium opacity-70">Mutlu Müşteri</p>
+                <p className="text-[28px] font-bold" style={{ fontFamily: "var(--font-display)" }}>{c["service_detail.about.stat_value"]}</p>
+                <p className="text-[11px] uppercase tracking-[0.2em] font-medium opacity-70">{c["service_detail.about.stat_label"]}</p>
               </div>
             </motion.div>
           </div>
@@ -168,12 +175,12 @@ export default function ServicePageClient({ service }: { service: ServiceClientD
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4">Hizmet Kapsamı</p>
+            <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4">{c["service_detail.features.eyebrow"]}</p>
             <h2
               className="text-3xl sm:text-4xl lg:text-5xl font-bold"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Bu hizmette neler <span className="text-[var(--color-accent)]">sunuyoruz?</span>
+              {c["service_detail.features.title"]} <span className="text-[var(--color-accent)]">{c["service_detail.features.title_highlight"]}</span>
             </h2>
           </motion.div>
 
@@ -228,7 +235,7 @@ export default function ServicePageClient({ service }: { service: ServiceClientD
               href="https://wa.me/905400065544"
               className="inline-flex items-center gap-2 text-black text-[13px] uppercase tracking-[0.2em] px-8 py-3.5 bg-white hover:bg-white/90 transition-all duration-300 rounded font-semibold"
             >
-              Hemen Başlayın
+              {c["service_detail.features.cta"]}
               <ArrowRight size={14} />
             </a>
           </motion.div>
@@ -245,12 +252,12 @@ export default function ServicePageClient({ service }: { service: ServiceClientD
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4">Süreç</p>
+            <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4">{c["service_detail.process.eyebrow"]}</p>
             <h2
               className="text-3xl sm:text-4xl lg:text-5xl font-bold"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Nasıl <span className="text-[var(--color-accent)]">Çalışıyoruz?</span>
+              {c["service_detail.process.title"]} <span className="text-[var(--color-accent)]">{c["service_detail.process.title_highlight"]}</span>
             </h2>
           </motion.div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -288,12 +295,12 @@ export default function ServicePageClient({ service }: { service: ServiceClientD
             transition={{ duration: 0.8 }}
             className="text-center mb-14"
           >
-            <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4">Müşteri Yorumları</p>
+            <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4">{c["service_detail.testimonials.eyebrow"]}</p>
             <h2
               className="text-3xl sm:text-4xl lg:text-5xl font-bold"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Müşterilerimiz Ne <span className="text-[var(--color-accent)]">Diyor?</span>
+              {c["service_detail.testimonials.title"]} <span className="text-[var(--color-accent)]">{c["service_detail.testimonials.title_highlight"]}</span>
             </h2>
           </motion.div>
           <div className="grid gap-6 sm:grid-cols-2">
@@ -334,12 +341,12 @@ export default function ServicePageClient({ service }: { service: ServiceClientD
             transition={{ duration: 0.8 }}
             className="text-center mb-14"
           >
-            <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4">SSS</p>
+            <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4">{c["service_detail.faq.eyebrow"]}</p>
             <h2
               className="text-3xl sm:text-4xl font-bold"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Sıkça Sorulan <span className="text-[var(--color-accent)]">Sorular</span>
+              {c["service_detail.faq.title"]} <span className="text-[var(--color-accent)]">{c["service_detail.faq.title_highlight"]}</span>
             </h2>
           </motion.div>
           <div className="space-y-3">
@@ -386,7 +393,7 @@ export default function ServicePageClient({ service }: { service: ServiceClientD
               href="/iletisim"
               className="inline-flex items-center gap-2 text-white text-[13px] uppercase tracking-[0.2em] px-8 py-3.5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-light)] transition-all duration-300 rounded group"
             >
-              Hemen İletişime Geçin
+              {c["service_detail.faq.cta"]}
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </a>
           </motion.div>

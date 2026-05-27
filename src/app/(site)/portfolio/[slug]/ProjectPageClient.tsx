@@ -20,7 +20,14 @@ interface ProjectClientData {
   gallery: string[];
 }
 
-export default function ProjectPageClient({ project }: { project: ProjectClientData }) {
+export default function ProjectPageClient({
+  project,
+  content,
+}: {
+  project: ProjectClientData;
+  content: Record<string, string>;
+}) {
+  const c = content;
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const galRef = useRef(null);
@@ -40,9 +47,9 @@ export default function ProjectPageClient({ project }: { project: ProjectClientD
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8 }}
             >
-              <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.3em] mb-4 font-semibold">Zorluk</p>
+              <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.3em] mb-4 font-semibold">{c["project_detail.challenge_label"]}</p>
               <SafeHtml html={project.challenge} className="text-[15px] mb-8" />
-              <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.3em] mb-4 font-semibold">Çözüm</p>
+              <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.3em] mb-4 font-semibold">{c["project_detail.solution_label"]}</p>
               <SafeHtml html={project.solution} className="text-[15px]" />
 
             </motion.div>
@@ -55,7 +62,7 @@ export default function ProjectPageClient({ project }: { project: ProjectClientD
             >
               {/* Services Used */}
               <div className="p-6 border border-[var(--color-border)] rounded-lg bg-[#0d1220]/50">
-                <p className="text-white/70 text-[13px] font-semibold mb-4">Kullanılan Hizmetler</p>
+                <p className="text-white/70 text-[13px] font-semibold mb-4">{c["project_detail.services_used_label"]}</p>
                 <div className="flex flex-wrap gap-2">
                   {project.services.map((s) => (
                     <span key={s} className="text-[11px] px-4 py-1.5 bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/15 rounded-full text-white/50">
@@ -68,11 +75,11 @@ export default function ProjectPageClient({ project }: { project: ProjectClientD
               {/* Project Info */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-6 border border-[var(--color-border)] rounded-lg bg-[#0d1220]/50">
-                  <p className="text-white/30 text-[11px] uppercase tracking-[0.3em] mb-2">Müşteri</p>
+                  <p className="text-white/30 text-[11px] uppercase tracking-[0.3em] mb-2">{c["project_detail.client_box_label"]}</p>
                   <p className="text-white/80 text-[15px] font-semibold">{project.client}</p>
                 </div>
                 <div className="p-6 border border-[var(--color-border)] rounded-lg bg-[#0d1220]/50">
-                  <p className="text-white/30 text-[11px] uppercase tracking-[0.3em] mb-2">Yıl</p>
+                  <p className="text-white/30 text-[11px] uppercase tracking-[0.3em] mb-2">{c["project_detail.year_label"].replace(":", "")}</p>
                   <p className="text-white/80 text-[15px] font-semibold">{project.year}</p>
                 </div>
               </div>
@@ -81,7 +88,7 @@ export default function ProjectPageClient({ project }: { project: ProjectClientD
                 href="/iletisim"
                 className="inline-flex items-center gap-2 text-white text-[13px] uppercase tracking-[0.2em] px-6 py-3 bg-[var(--color-accent)] hover:bg-[var(--color-accent-light)] transition-colors rounded"
               >
-                Benzer Proje İçin Teklif Al
+                {c["project_detail.cta_label"]}
                 <ArrowRight size={14} />
               </a>
             </motion.div>
@@ -123,9 +130,9 @@ export default function ProjectPageClient({ project }: { project: ProjectClientD
             transition={{ duration: 0.8 }}
             className="text-center mb-12"
           >
-            <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4">Sonuçlar</p>
+            <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4">{c["project_detail.results.eyebrow"]}</p>
             <h2 className="text-3xl sm:text-4xl font-bold" style={{ fontFamily: "var(--font-display)" }}>
-              Elde Edilen <span className="text-[var(--color-accent)]">Başarılar</span>
+              {c["project_detail.results.title"]} <span className="text-[var(--color-accent)]">{c["project_detail.results.title_highlight"]}</span>
             </h2>
           </motion.div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">

@@ -8,6 +8,8 @@ import {
   listPublishedServiceSlugs,
 } from "@/lib/queries/services";
 import { htmlToPlainText } from "@/lib/sanitize";
+import { getPageContent } from "@/lib/pageContent";
+import { readSettings } from "@/lib/settings";
 
 export const dynamic = "force-dynamic";
 
@@ -43,8 +45,19 @@ export default async function ServicePage({
   const service = await getServiceBySlug(slug);
   if (!service) notFound();
 
-  const all = await listPublishedServices();
+  const [all, c, contact] = await Promise.all([
+    listPublishedServices(),
+    getPageContent("hizmetler"),
+    readSettings(["contact.whatsapp", "contact.phone"]),
+  ]);
   const otherServices = all.filter((s) => s.slug !== slug).slice(0, 3);
+  const whatsappRaw =
+    (contact["contact.whatsapp"] as string) ||
+    (contact["contact.phone"] as string) ||
+    "";
+  const whatsappHref = whatsappRaw
+    ? `https://wa.me/${whatsappRaw.replace(/[^0-9]/g, "")}`
+    : "#";
 
   return (
     <>
@@ -57,7 +70,7 @@ export default async function ServicePage({
         <div className="absolute inset-0 bg-gradient-to-b from-[#0d1220]/80 via-[#0d1220]/70 to-[#0d1220]" />
         <div className="relative z-10 text-center px-6">
           <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4">
-            Hizmetlerimiz
+            {c["service_detail.hero.eyebrow"]}
           </p>
           <h1
             className="text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight"
@@ -83,35 +96,35 @@ export default async function ServicePage({
               href="/iletisim"
               className="px-8 py-3 bg-[var(--color-accent)] text-black text-[13px] uppercase tracking-[0.2em] font-semibold hover:bg-[var(--color-accent-light)] transition-all duration-300 rounded"
             >
-              Detaylı Bilgi
+              {c["service_detail.hero.cta_primary"]}
             </Link>
             <a
-              href="https://wa.me/905400065544"
+              href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3 border border-white/20 text-white/80 text-[13px] uppercase tracking-[0.2em] hover:border-green-400 hover:text-green-400 transition-all duration-300 rounded flex items-center gap-2"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.122 1.527 5.855L.06 23.94l6.248-1.436C8.015 23.48 9.96 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.82 0-3.543-.467-5.043-1.29l-.36-.214-3.733.858.894-3.626-.235-.374A9.94 9.94 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
-              WhatsApp
+              {c["service_detail.hero.cta_whatsapp"]}
             </a>
           </div>
         </div>
       </section>
 
-      <ServicePageClient service={service} />
+      <ServicePageClient service={service} content={c} />
 
       {/* Other Services */}
       <section className="relative py-20 lg:py-28">
         <div className="absolute inset-0 bg-[#0d1220]" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
           <p className="text-[var(--color-accent)] text-[11px] uppercase tracking-[0.5em] mb-4 text-center">
-            Diğer Hizmetlerimiz
+            {c["service_detail.other.eyebrow"]}
           </p>
           <h2
             className="text-3xl sm:text-4xl font-bold text-center mb-12"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Daha Fazlasını Keşfedin
+            {c["service_detail.other.title"]}
           </h2>
           <div className="grid sm:grid-cols-3 gap-4">
             {otherServices.map((s) => (
@@ -154,27 +167,27 @@ export default async function ServicePage({
             className="text-3xl sm:text-4xl lg:text-5xl font-bold"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            {service.title} için
+            {service.title} {c["service_detail.cta.title_after_service"]}
             <br />
-            <span className="text-[var(--color-accent)]">teklif alın.</span>
+            <span className="text-[var(--color-accent)]">{c["service_detail.cta.title_highlight"]}</span>
           </h2>
           <p className="mt-4 text-white/40 max-w-md mx-auto">
-            Projenizi anlatın, size özel bir teklif hazırlayalım.
+            {c["service_detail.cta.subtitle"]}
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/iletisim"
               className="px-10 py-3.5 bg-[var(--color-accent)] text-black text-[13px] uppercase tracking-[0.2em] font-semibold hover:bg-[var(--color-accent-light)] transition-all duration-300"
             >
-              İletişime Geç
+              {c["service_detail.cta.primary"]}
             </Link>
             <a
-              href="https://wa.me/905400065544"
+              href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
               className="px-10 py-3.5 border border-white/20 text-white/80 text-[13px] uppercase tracking-[0.2em] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-all duration-300"
             >
-              WhatsApp&apos;tan Yaz
+              {c["service_detail.cta.whatsapp"]}
             </a>
           </div>
         </div>
