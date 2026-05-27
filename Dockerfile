@@ -31,17 +31,31 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=80
 ENV HOSTNAME=0.0.0.0
+ENV UPLOAD_DIR=/app/public/uploads
 
 # Non-root user
 RUN addgroup --system --gid 1001 nodejs && \
     adduser  --system --uid 1001 nextjs
 
-# Standalone output (Next.js)
+# Standalone Next.js output
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
+# Migration assets (run on every boot via entrypoint)
+COPY --from=builder --chown=nextjs:nodejs /app/drizzle ./drizzle
+COPY --from=builder --chown=nextjs:nodejs /app/scripts/migrate-prod.cjs ./scripts/migrate-prod.cjs
+COPY --from=builder --chown=nextjs:nodejs /app/scripts/entrypoint.sh ./scripts/entrypoint.sh
+
+# `pg` is bundled into .next/standalone/node_modules by Next.js (server code uses it
+# and outputFileTracingIncludes forces inclusion). migrate-prod.cjs can `require("pg")`
+# at runtime by resolving through the standalone node_modules.
+
+RUN chmod +x ./scripts/entrypoint.sh && \
+    mkdir -p ./public/uploads && \
+    chown -R nextjs:nodejs ./public/uploads
+
 USER nextjs
 EXPOSE 80
 
-CMD ["node", "server.js"]
+CMD ["./scripts/entrypoint.sh"]

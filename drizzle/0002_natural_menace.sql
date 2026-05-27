@@ -1,0 +1,1 @@
+ALTER TABLE "blog_tags" ADD COLUMN "order_index" integer DEFAULT 0 NOT NULL;

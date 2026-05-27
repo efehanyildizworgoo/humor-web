@@ -4,41 +4,10 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import type { PublicProjectListItem } from "@/lib/queries/projects";
 
-const projects = [
-  {
-    title: "GreenPeak Marka Lansmanı",
-    category: "Dijital Strateji",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-  },
-  {
-    title: "TechVista Reklam Filmi",
-    category: "Prodüksiyon",
-    image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80",
-  },
-  {
-    title: "Bloom Cosmetics Sosyal Medya",
-    category: "Sosyal Medya",
-    image: "https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=800&q=80",
-  },
-  {
-    title: "NovaTech Reels Serisi",
-    category: "İçerik Üretimi",
-    image: "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&q=80",
-  },
-  {
-    title: "SoundWave Festival",
-    category: "Canlı Yayın",
-    image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&q=80",
-  },
-  {
-    title: "Arkitekt Studio Drone",
-    category: "Drone Çekimi",
-    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80",
-  },
-];
-
-export default function HomeWork() {
+export default function HomeWork({ items }: { items: PublicProjectListItem[] }) {
+  const projects = items;
   const ref = useRef(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });

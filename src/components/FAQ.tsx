@@ -3,38 +3,14 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { Plus, Minus } from "lucide-react";
+import type { PublicFaq } from "@/lib/queries/content";
 
-const faqs = [
-  {
-    q: "Hangi hizmetleri sunuyorsunuz?",
-    a: "Sosyal medya yönetimi, dijital strateji, içerik üretimi, reklam yönetimi (Meta & Google Ads), prodüksiyon, video kurgulama, drone çekimi, canlı yayın ve senaryo yazımı hizmetleri sunuyoruz.",
-  },
-  {
-    q: "Süreç nasıl işliyor?",
-    a: "İlk olarak markanızı ve hedeflerinizi anlatan bir keşif toplantısı yapıyoruz. Ardından stratejik brief hazırlıyor, kreatif konseptleri sunuyor ve onay sonrası üretime geçiyoruz. Her aşamada şeffaf iletişim ve revizyon imkânı sağlıyoruz.",
-  },
-  {
-    q: "Fiyatlandırma nasıl yapılıyor?",
-    a: "Her proje kendine özgü olduğu için paket bazlı ve proje bazlı fiyatlandırma seçeneklerimiz var. Aylık sosyal medya yönetimi, tek seferlik prodüksiyon projeleri veya entegre kampanyalar için size özel teklif hazırlıyoruz.",
-  },
-  {
-    q: "Sadece Ankara'da mı hizmet veriyorsunuz?",
-    a: "Merkezimiz Ankara'da olmakla birlikte Türkiye genelinde ve yurt dışında hizmet veriyoruz. Dijital hizmetlerimiz lokasyon bağımsız, prodüksiyon hizmetlerimiz için ekibimizle projenizin olduğu yere geliyoruz.",
-  },
-  {
-    q: "Minimum proje süresi var mı?",
-    a: "Sosyal medya yönetimi için minimum 3 aylık anlaşma öneriyoruz çünkü dijital stratejilerin sonuç vermesi zaman alır. Prodüksiyon ve tek seferlik projeler için süre sınırı yoktur.",
-  },
-  {
-    q: "Raporlama yapıyor musunuz?",
-    a: "Evet, aylık detaylı performans raporları sunuyoruz. Etkileşim oranları, erişim, büyüme metrikleri ve reklam performansı gibi tüm KPI'ları şeffaf şekilde paylaşıyoruz.",
-  },
-];
-
-export default function FAQ() {
+export default function FAQ({ items }: { items: PublicFaq[] }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const faqs = items;
+  if (faqs.length === 0) return null;
 
   return (
     <section id="faq" className="relative py-16 sm:py-24 lg:py-44">

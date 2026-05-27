@@ -2,16 +2,13 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import type { PublicStat } from "@/lib/queries/content";
 
-const stats = [
-  { value: "80+", label: "Mutlu Marka" },
-  { value: "100M+", label: "Toplam Görüntüleme" },
-  { value: "300+", label: "Tamamlanan Proje" },
-];
-
-export default function Stats() {
+export default function Stats({ items }: { items: PublicStat[] }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const stats = items;
+  if (stats.length === 0) return null;
 
   return (
     <section className="border-y border-[var(--color-border)] bg-[var(--color-surface)] py-16">

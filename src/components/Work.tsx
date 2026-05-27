@@ -4,9 +4,15 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { projects, categories } from "@/data/projects";
+import type { PublicProjectListItem } from "@/lib/queries/projects";
 
-export default function Work() {
+export default function Work({
+  projects,
+  categories,
+}: {
+  projects: PublicProjectListItem[];
+  categories: string[];
+}) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [filter, setFilter] = useState("Tümü");

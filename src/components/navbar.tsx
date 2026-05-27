@@ -2,30 +2,21 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Send, Megaphone, Lightbulb, PenTool, BarChart3, Clapperboard, Video, Plane, Radio, FileText, ChevronDown } from "lucide-react";
+import { Menu, X, Send, ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { Icon } from "@/lib/icons";
 
-const navLinks = [
-  { label: "Ana Sayfa", href: "/" },
-  { label: "Hakkımızda", href: "/hakkimizda" },
-  { label: "Hizmetler", href: "/hizmetler", hasMega: true },
-  { label: "Portföy", href: "/portfolio" },
-  { label: "İletişim", href: "/iletisim" },
-];
+type NavLink = { label: string; href: string };
+type MegaService = { icon: string; title: string; desc: string; href: string };
 
-const megaServices = [
-  { icon: Megaphone, title: "Sosyal Medya Yönetimi", desc: "Instagram, TikTok, LinkedIn yönetimi", href: "/hizmetler/sosyal-medya-yonetimi" },
-  { icon: Lightbulb, title: "Dijital Strateji", desc: "Marka konumlandırma & büyüme", href: "/hizmetler/dijital-strateji" },
-  { icon: PenTool, title: "İçerik Üretimi", desc: "Görsel tasarım, copywriting, reels", href: "/hizmetler/icerik-uretimi" },
-  { icon: BarChart3, title: "Reklam Yönetimi", desc: "Meta Ads, Google Ads, performans", href: "/hizmetler/reklam-yonetimi" },
-  { icon: Clapperboard, title: "Prodüksiyon", desc: "Reklam filmi, tanıtım, kurumsal", href: "/hizmetler/produksiyon" },
-  { icon: Video, title: "Video Kurgulama", desc: "Montaj, color grading, motion", href: "/hizmetler/video-kurgulama" },
-  { icon: Plane, title: "Drone Çekimi", desc: "8K aerial, havadan görüntüleme", href: "/hizmetler/drone-cekimi" },
-  { icon: Radio, title: "Canlı Yayın", desc: "Multi-kamera, streaming, etkinlik", href: "/hizmetler/canli-yayin" },
-  { icon: FileText, title: "Senaryo Yazımı", desc: "Kreatif brief, storyboard, script", href: "/hizmetler/senaryo-yazimi" },
-];
-
-export default function Navbar() {
+export default function Navbar({
+  navLinks,
+  megaServices,
+}: {
+  navLinks: NavLink[];
+  megaServices: MegaService[];
+}) {
+  const hasServicesMega = megaServices.length > 0;
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showQuote, setShowQuote] = useState(false);
@@ -66,8 +57,9 @@ export default function Navbar() {
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-10">
-            {navLinks.map((link) =>
-              link.hasMega ? (
+            {navLinks.map((link) => {
+              const isServices = hasServicesMega && link.href === "/hizmetler";
+              return isServices ? (
                 <div
                   key={link.href}
                   className="relative"
@@ -90,8 +82,8 @@ export default function Navbar() {
                 >
                   {link.label}
                 </Link>
-              )
-            )}
+              );
+            })}
           </div>
 
           {/* CTA */}
@@ -135,7 +127,7 @@ export default function Navbar() {
                       className="group flex items-start gap-3 p-3 rounded-lg hover:bg-white/[0.04] transition-all duration-300"
                     >
                       <div className="w-9 h-9 rounded-lg bg-[var(--color-accent)]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[var(--color-accent)]/20 transition-colors duration-300">
-                        <s.icon size={16} className="text-[var(--color-accent)]" />
+                        <Icon name={s.icon} size={16} className="text-[var(--color-accent)]" />
                       </div>
                       <div>
                         <p className="text-white/80 text-[13px] font-medium group-hover:text-[var(--color-accent)] transition-colors duration-300">
@@ -242,16 +234,12 @@ export default function Navbar() {
                   <input type="email" placeholder="E-posta" className="w-full bg-[#0d1220] border border-[var(--color-border)] px-4 py-3 text-[14px] text-white placeholder:text-white/20 focus:border-[var(--color-accent)]/40 focus:outline-none transition-colors" />
                 </div>
                 <input type="tel" placeholder="Telefon" className="w-full bg-[#0d1220] border border-[var(--color-border)] px-4 py-3 text-[14px] text-white placeholder:text-white/20 focus:border-[var(--color-accent)]/40 focus:outline-none transition-colors" />
-                <select className="w-full bg-[#0d1220] border border-[var(--color-border)] px-4 py-3 text-[14px] text-white/40 focus:border-[var(--color-accent)]/40 focus:outline-none transition-colors appearance-none" defaultValue="">
+                <select name="subject" className="w-full bg-[#0d1220] border border-[var(--color-border)] px-4 py-3 text-[14px] text-white/40 focus:border-[var(--color-accent)]/40 focus:outline-none transition-colors appearance-none" defaultValue="">
                   <option value="" disabled>Hizmet Seçin</option>
-                  <option value="sosyal">Sosyal Medya Yönetimi</option>
-                  <option value="strateji">Dijital Strateji</option>
-                  <option value="icerik">İçerik Üretimi</option>
-                  <option value="reklam">Reklam Yönetimi</option>
-                  <option value="produksiyon">Prodüksiyon</option>
-                  <option value="drone">Drone Çekimi</option>
-                  <option value="canli">Canlı Yayın</option>
-                  <option value="diger">Diğer</option>
+                  {megaServices.map((s) => (
+                    <option key={s.href} value={s.title}>{s.title}</option>
+                  ))}
+                  <option value="Diğer">Diğer</option>
                 </select>
                 <textarea rows={3} placeholder="Projeniz hakkında kısa bilgi..." className="w-full bg-[#0d1220] border border-[var(--color-border)] px-4 py-3 text-[14px] text-white placeholder:text-white/20 focus:border-[var(--color-accent)]/40 focus:outline-none transition-colors resize-none" />
                 <button type="submit" className="w-full py-3.5 bg-[var(--color-accent)] text-black text-[13px] uppercase tracking-[0.2em] font-semibold hover:bg-[var(--color-accent-light)] transition-all duration-300 flex items-center justify-center gap-2">

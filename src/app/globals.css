@@ -105,3 +105,148 @@ body {
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* ============================================================
+   Rich editor output (prose-rich)
+   Used by SafeHtml component to render Tiptap-generated HTML.
+   ============================================================ */
+.prose-rich {
+  color: rgba(232, 233, 240, 0.8);
+  line-height: 1.7;
+}
+.prose-rich > * + * { margin-top: 1em; }
+.prose-rich h1,
+.prose-rich h2,
+.prose-rich h3,
+.prose-rich h4 {
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.prose-rich h2 { font-size: 1.75rem; margin-top: 2em; }
+.prose-rich h3 { font-size: 1.35rem; margin-top: 1.5em; }
+.prose-rich h4 { font-size: 1.1rem; }
+.prose-rich p { font-size: 1rem; }
+.prose-rich a {
+  color: var(--color-accent-soft);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+.prose-rich a:hover { color: var(--color-accent); }
+.prose-rich ul,
+.prose-rich ol { padding-left: 1.5rem; }
+.prose-rich ul { list-style: disc; }
+.prose-rich ol { list-style: decimal; }
+.prose-rich li + li { margin-top: 0.35em; }
+.prose-rich blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1rem;
+  font-style: italic;
+  color: rgba(232, 233, 240, 0.6);
+}
+.prose-rich code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: rgba(106, 70, 150, 0.18);
+  color: #faea92;
+  padding: 0.15em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+.prose-rich pre {
+  background: #0d1220;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+}
+.prose-rich pre code {
+  background: transparent;
+  color: #e8e9f0;
+  padding: 0;
+}
+.prose-rich img,
+.prose-rich figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  display: block;
+  margin: 1.5em auto;
+}
+.prose-rich figure { margin: 1.5em 0; }
+.prose-rich figcaption {
+  text-align: center;
+  font-size: 0.85em;
+  color: rgba(232, 233, 240, 0.45);
+  margin-top: 0.5em;
+}
+.prose-rich hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin: 2em 0;
+}
+.prose-rich strong { color: #fff; font-weight: 700; }
+.prose-rich em { color: rgba(232, 233, 240, 0.9); }
+.prose-rich mark { background: rgba(250, 234, 146, 0.2); color: #faea92; padding: 0 0.2em; }
+
+/* ============================================================
+   Tiptap editor in admin (.ProseMirror)
+   Mirrors prose-rich but optimized for editing.
+   ============================================================ */
+.ProseMirror {
+  outline: none;
+  min-height: 200px;
+  color: #e8e9f0;
+  line-height: 1.6;
+}
+.ProseMirror > * + * { margin-top: 0.75em; }
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4 {
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.ProseMirror h2 { font-size: 1.6rem; margin-top: 1.5em; }
+.ProseMirror h3 { font-size: 1.25rem; margin-top: 1.2em; }
+.ProseMirror p { font-size: 0.95rem; }
+.ProseMirror a {
+  color: var(--color-accent-soft);
+  text-decoration: underline;
+}
+.ProseMirror ul, .ProseMirror ol { padding-left: 1.5rem; }
+.ProseMirror ul { list-style: disc; }
+.ProseMirror ol { list-style: decimal; }
+.ProseMirror blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1rem;
+  color: rgba(232, 233, 240, 0.7);
+}
+.ProseMirror code {
+  background: rgba(106, 70, 150, 0.18);
+  color: #faea92;
+  padding: 0.15em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1em auto;
+  display: block;
+}
+.ProseMirror img.ProseMirror-selectednode {
+  outline: 2px solid var(--color-accent);
+}
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: #5a6285;
+  pointer-events: none;
+  height: 0;
+  float: left;
+}

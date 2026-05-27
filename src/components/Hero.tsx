@@ -4,7 +4,25 @@ import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import LogoMarquee from "./LogoMarquee";
 
-export default function Hero() {
+export default function Hero({
+  eyebrow,
+  title,
+  subtitle,
+  ctaPrimaryLabel,
+  ctaPrimaryHref,
+  ctaSecondaryLabel,
+  ctaSecondaryHref,
+  scrollLabel,
+}: {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  ctaPrimaryLabel: string;
+  ctaPrimaryHref: string;
+  ctaSecondaryLabel: string;
+  ctaSecondaryHref: string;
+  scrollLabel: string;
+}) {
   return (
     <section id="hero" className="relative h-screen w-full overflow-hidden">
       {/* Background — Purple Gradient */}
@@ -27,7 +45,7 @@ export default function Hero() {
           transition={{ duration: 1.2, ease: "easeOut" }}
         >
           <p className="text-[var(--color-gold)] text-[11px] sm:text-[13px] tracking-[0.5em] mb-6">
-            CREATIVE AGENCY / ANKARA
+            {eyebrow}
           </p>
         </motion.div>
 
@@ -38,17 +56,16 @@ export default function Hero() {
           className="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-[0.9]"
           style={{ fontFamily: "var(--font-brand)" }}
         >
-          <span className="text-white">HUMOR</span>
+          <span className="text-white">{title}</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-          className="mt-8 max-w-xl text-white/70 text-sm sm:text-base leading-relaxed"
+          className="mt-8 max-w-xl text-white/70 text-sm sm:text-base leading-relaxed whitespace-pre-line"
         >
-          Sınır yok. Kalıp yok. Sadece iyi fikir var.<br />
-          Biz Humor&apos;uz, ortalığı karıştırıyoruz.
+          {subtitle}
         </motion.p>
 
         {/* CTA Buttons */}
@@ -59,16 +76,16 @@ export default function Hero() {
           className="mt-10 flex flex-col sm:flex-row gap-4"
         >
           <a
-            href="/iletisim"
+            href={ctaPrimaryHref}
             className="px-10 py-3.5 bg-white text-[#1c2545] text-[13px] uppercase tracking-[0.2em] font-semibold hover:bg-[var(--color-gold)] transition-all duration-300"
           >
-            Projeni Anlat
+            {ctaPrimaryLabel}
           </a>
           <a
-            href="/portfolio"
+            href={ctaSecondaryHref}
             className="px-10 py-3.5 border border-white/30 text-white text-[13px] uppercase tracking-[0.2em] font-medium hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all duration-300 flex items-center justify-center gap-2"
           >
-            Neler Yaptık?
+            {ctaSecondaryLabel}
           </a>
         </motion.div>
       </div>
@@ -81,7 +98,7 @@ export default function Hero() {
         transition={{ delay: 1.5, duration: 1 }}
         className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-white/40 hover:text-[var(--color-gold)] transition-colors cursor-pointer"
       >
-        <span className="text-[10px] uppercase tracking-[0.3em]">Keşfet</span>
+        <span className="text-[10px] uppercase tracking-[0.3em]">{scrollLabel}</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}

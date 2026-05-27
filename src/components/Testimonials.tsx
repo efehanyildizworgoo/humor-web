@@ -3,45 +3,14 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Quote } from "lucide-react";
+import type { PublicTestimonial } from "@/lib/queries/content";
 
-const testimonials = [
-  {
-    name: "Mehmet Yılmaz",
-    title: "Pazarlama Direktörü, TechVista",
-    text: "Humor Creative ekibiyle çalışmak inanılmaz bir deneyimdi. Sosyal medya stratejimiz tamamen değişti ve etkileşim oranlarımız üç katına çıktı.",
-  },
-  {
-    name: "Ayşe Kara",
-    title: "Kurucu, Bloom Cosmetics",
-    text: "İçerik üretiminde gerçekten fark yarattılar. Her paylaşım markanın ruhunu yansıtıyor. Kesinlikle doğru ajansı seçtik.",
-  },
-  {
-    name: "Can Demir",
-    title: "Etkinlik Müdürü, SoundWave",
-    text: "Festival canlı yayınımızı ve aftermovie&apos;mizi Humor Creative yaptı. Hem teknik hem kreatif olarak beklentilerimizin çok üzerindeydi.",
-  },
-  {
-    name: "Elif Başaran",
-    title: "Marka Müdürü, GreenPeak",
-    text: "Lansman kampanyamızı sıfırdan tasarladılar. Strateji, içerik, reklam yönetimi, her şey tek elden ve kusursuzdu.",
-  },
-  {
-    name: "Burak Özkan",
-    title: "CEO, Arkitekt Studio",
-    text: "Drone çekimleri ve kurumsal tanıtım filmimiz muhteşem oldu. Projelerimizi müşterilere sunarken büyük avantaj sağlıyor.",
-  },
-  {
-    name: "Selin Aydın",
-    title: "İletişim Uzmanı, NovaTech",
-    text: "Reels serimiz viral oldu, 2 milyonun üzerinde organik görüntülenme aldık. Humor Creative gerçekten işini biliyor.",
-  },
-];
-
-export default function Testimonials() {
+export default function Testimonials({ items }: { items: PublicTestimonial[] }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const doubled = [...testimonials, ...testimonials];
+  if (items.length === 0) return null;
+  const doubled = [...items, ...items];
 
   return (
     <section className="relative py-16 sm:py-24 lg:py-44 overflow-x-hidden overflow-y-visible">

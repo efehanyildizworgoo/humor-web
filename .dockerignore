@@ -9,5 +9,8 @@ out
 README.md
 AGENTS.md
 CLAUDE.md
+DEPLOY.md
 **/*.log
 npm-debug.log*
+public/uploads/*
+!public/uploads/.gitkeep

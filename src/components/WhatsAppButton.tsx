@@ -2,10 +2,13 @@
 
 import { motion } from "framer-motion";
 
-export default function WhatsAppButton() {
+export default function WhatsAppButton({ phone }: { phone?: string }) {
+  if (!phone) return null;
+  const cleaned = phone.replace(/[^0-9]/g, "");
+  if (!cleaned) return null;
   return (
     <motion.a
-      href="https://wa.me/905400065544"
+      href={`https://wa.me/${cleaned}`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp ile iletişime geçin"
