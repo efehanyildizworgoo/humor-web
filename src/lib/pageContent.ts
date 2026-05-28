@@ -43,7 +43,7 @@ export const PAGES: PageDefinition[] = [
         fields: [
           { key: "brand.site_name", label: "Site adı", type: "text", default: "Humor", hint: "Tarayıcı sekmesi ve OG/Twitter cardlarda" },
           { key: "brand.logo_white", label: "Logo (beyaz / koyu zemin)", type: "image", default: "/logo-white.svg", hint: "Navbar ve footer'da kullanılır", colSpan: 2 },
-          { key: "brand.favicon", label: "Favicon", type: "image", default: "/favicon.ico", hint: "Tarayıcı sekme ikonu (.ico / .png — kare, en az 32×32)", colSpan: 2 },
+          { key: "brand.favicon", label: "Favicon", type: "image", default: "", hint: "Tarayıcı sekme ikonu (.ico / .png — kare, en az 32×32)", colSpan: 2 },
           { key: "brand.apple_icon", label: "Apple Touch Icon", type: "image", default: "", hint: "iOS ana ekran ikonu (180×180 önerilir)", colSpan: 2 },
         ],
       },
