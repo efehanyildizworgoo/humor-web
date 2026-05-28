@@ -16,6 +16,7 @@ import {
   LogOut,
   Newspaper,
   FileEdit,
+  UserCog,
 } from "lucide-react";
 import { logoutAction } from "./actions";
 
@@ -32,6 +33,7 @@ const nav: { href: string; label: string; icon: React.ComponentType<{ className?
   { href: "/admin/menu", label: "Menü", icon: MenuIcon },
   { href: "/admin/gorseller", label: "Görseller", icon: ImageIcon },
   { href: "/admin/ayarlar", label: "Ayarlar", icon: Settings },
+  { href: "/admin/hesap", label: "Hesap", icon: UserCog },
 ];
 
 export default function Sidebar({ email }: { email: string }) {
