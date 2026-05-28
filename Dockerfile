@@ -33,8 +33,10 @@ ENV PORT=80
 ENV HOSTNAME=0.0.0.0
 ENV UPLOAD_DIR=/app/public/uploads
 
-# Non-root user
-RUN addgroup --system --gid 1001 nodejs && \
+# Non-root user + su-exec (lets entrypoint drop from root → nextjs after
+# fixing volume mount ownership at runtime).
+RUN apk add --no-cache su-exec && \
+    addgroup --system --gid 1001 nodejs && \
     adduser  --system --uid 1001 nextjs
 
 # Standalone Next.js output
@@ -55,7 +57,9 @@ RUN chmod +x ./scripts/entrypoint.sh && \
     mkdir -p ./public/uploads && \
     chown -R nextjs:nodejs ./public/uploads
 
-USER nextjs
+# NOTE: run as root so entrypoint can chown the persistent-volume mount
+# point (which Docker mounts as root:root regardless of the in-image
+# ownership). Entrypoint drops to nextjs via su-exec before exec'ing node.
 EXPOSE 80
 
 CMD ["./scripts/entrypoint.sh"]
