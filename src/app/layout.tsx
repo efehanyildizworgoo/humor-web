@@ -19,8 +19,11 @@ export async function generateMetadata(): Promise<Metadata> {
     // DB not reachable at build/SSG time; fall back to defaults.
   }
   const siteName = brand["brand.site_name"] || "Humor";
-  const favicon = brand["brand.favicon"] || "/favicon.ico";
-  const appleIcon = brand["brand.apple_icon"] || "";
+  // Either field can be empty — fall back to the other if so.
+  const faviconRaw = (brand["brand.favicon"] || "").trim();
+  const appleRaw = (brand["brand.apple_icon"] || "").trim();
+  const favicon = faviconRaw || appleRaw || "/favicon.ico";
+  const appleIcon = appleRaw || faviconRaw || "";
 
   return {
     metadataBase: new URL(siteUrl),

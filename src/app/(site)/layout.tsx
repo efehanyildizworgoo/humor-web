@@ -28,8 +28,10 @@ const KEYWORDS = [
 export async function generateMetadata(): Promise<Metadata> {
   const brand = await getPageContent("marka");
   const ogImage = brand["brand.og_image"] || "/og-image.jpg";
-  const favicon = brand["brand.favicon"] || "/favicon.ico";
-  const appleIcon = brand["brand.apple_icon"] || "";
+  const faviconRaw = (brand["brand.favicon"] || "").trim();
+  const appleRaw = (brand["brand.apple_icon"] || "").trim();
+  const favicon = faviconRaw || appleRaw || "/favicon.ico";
+  const appleIcon = appleRaw || faviconRaw || "";
   const siteName = brand["brand.site_name"] || "Humor";
   const ogTitle = brand["brand.og_title"] || "Humor | Ankara Kreatif Ajans";
   const ogDescription =
