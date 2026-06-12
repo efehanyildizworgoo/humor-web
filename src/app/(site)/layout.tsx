@@ -26,7 +26,13 @@ const KEYWORDS = [
 ];
 
 export async function generateMetadata(): Promise<Metadata> {
-  const brand = await getPageContent("marka");
+  let brand: Record<string, string> = {};
+  try {
+    brand = await getPageContent("marka");
+  } catch {
+    // DB hiccup — keep og/twitter on defaults instead of dropping the whole
+    // segment (which would let title fall back to root layout's default).
+  }
   const ogImage = brand["brand.og_image"] || "/og-image.jpg";
   const faviconRaw = (brand["brand.favicon"] || "").trim();
   const appleRaw = (brand["brand.apple_icon"] || "").trim();

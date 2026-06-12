@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import { getPageContent } from "@/lib/pageContent";
+import { readSettings } from "@/lib/settings";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -11,28 +12,41 @@ const manrope = Manrope({
 
 const siteUrl = "https://www.humorkreatif.com";
 
+const FALLBACK_DESCRIPTION =
+  "Ankara merkezli kreatif ajans. Sosyal medya yönetimi, dijital strateji, içerik üretimi, reklam yönetimi, prodüksiyon, drone çekimi ve canlı yayın hizmetleri.";
+
 export async function generateMetadata(): Promise<Metadata> {
   let brand: Record<string, string> = {};
+  let settings: Record<string, unknown> = {};
   try {
-    brand = await getPageContent("marka");
+    [brand, settings] = await Promise.all([
+      getPageContent("marka"),
+      readSettings(["seo.default_title", "seo.default_description"]),
+    ]);
   } catch {
     // DB not reachable at build/SSG time; fall back to defaults.
   }
   const siteName = brand["brand.site_name"] || "Humor";
+  const seoTitle = String(settings["seo.default_title"] ?? "").trim();
+  const seoDescription = String(settings["seo.default_description"] ?? "").trim();
   // Either field can be empty — fall back to the other if so.
   const faviconRaw = (brand["brand.favicon"] || "").trim();
   const appleRaw = (brand["brand.apple_icon"] || "").trim();
   const favicon = faviconRaw || appleRaw || "/favicon.ico";
   const appleIcon = appleRaw || faviconRaw || "";
 
+  // Home page (and any child without its own title) uses title.default verbatim
+  // — admin's "Varsayılan Başlık" wins, then siteName-prefixed fallback.
+  const defaultTitle =
+    seoTitle || `${siteName} | Ankara Kreatif Ajans, Strateji, İçerik, Prodüksiyon`;
+
   return {
     metadataBase: new URL(siteUrl),
     title: {
-      default: `${siteName} | Ankara Kreatif Ajans, Strateji, İçerik, Prodüksiyon`,
+      default: defaultTitle,
       template: `%s | ${siteName}`,
     },
-    description:
-      "Ankara merkezli kreatif ajans. Sosyal medya yönetimi, dijital strateji, içerik üretimi, reklam yönetimi, prodüksiyon, drone çekimi ve canlı yayın hizmetleri.",
+    description: seoDescription || FALLBACK_DESCRIPTION,
     icons: {
       icon: favicon,
       shortcut: favicon,
