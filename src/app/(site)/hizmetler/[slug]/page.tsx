@@ -82,7 +82,7 @@ export default async function ServicePage({
             {c["service_detail.hero.eyebrow"]}
           </p>
           <h1
-            className="text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight"
+            className="text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight"
             style={{ fontFamily: "var(--font-display)" }}
           >
             {service.title}
