@@ -114,7 +114,7 @@ export default async function SiteLayout({
 
   const megaServices = services.map((s) => ({
     icon: s.icon,
-    title: s.title,
+    title: s.menuLabel?.trim() || s.title,
     desc: s.shortDesc || s.description.slice(0, 60),
     href: `/hizmetler/${s.slug}`,
   }));

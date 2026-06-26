@@ -6,10 +6,12 @@ import PageHero from "@/components/PageHero";
 import { listStats, listTestimonials } from "@/lib/queries/content";
 import { getPageContent } from "@/lib/pageContent";
 
-export const metadata: Metadata = {
-  title: "Hakkımızda",
-  description: "Humor Creative, Ankara merkezli kreatif ajans. Stratejiden üretime, fikirden yayına kadar her aşamada yanınızdayız.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const c = await getPageContent("hakkimizda");
+  const title = c["hakkimizda.meta.title"];
+  const description = c["hakkimizda.meta.description"];
+  return { title, description, openGraph: { title, description } };
+}
 
 export const dynamic = "force-dynamic";
 

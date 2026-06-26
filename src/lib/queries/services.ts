@@ -18,6 +18,7 @@ export type PublicService = {
   slug: string;
   icon: string;
   title: string;
+  menuLabel: string;
   shortDesc: string;
   heroImage: string;
   aboutImage: string;
@@ -25,6 +26,8 @@ export type PublicService = {
   longDescription: string;
   whyUs: string;
   seoText: string;
+  metaTitle: string;
+  metaDescription: string;
   bannerText: string;
   keywords: string[];
   idealFor: string[];
@@ -37,7 +40,7 @@ export type PublicService = {
 
 export type PublicServiceListItem = Pick<
   PublicService,
-  "slug" | "icon" | "title" | "shortDesc" | "heroImage" | "description"
+  "slug" | "icon" | "title" | "menuLabel" | "shortDesc" | "heroImage" | "description"
 > & { keywords: string[] };
 
 /** All published services in display order (with keywords for previews). */
@@ -67,6 +70,7 @@ export async function listPublishedServices(): Promise<PublicServiceListItem[]> 
     slug: r.slug,
     icon: r.icon,
     title: r.title,
+    menuLabel: r.menuLabel,
     shortDesc: r.shortDesc,
     heroImage: r.heroImage,
     // description may contain HTML; for list previews give a plain-text excerpt.
@@ -100,6 +104,7 @@ export async function getServiceBySlug(slug: string): Promise<PublicService | nu
     slug: s.slug,
     icon: s.icon,
     title: s.title,
+    menuLabel: s.menuLabel,
     shortDesc: s.shortDesc,
     heroImage: s.heroImage,
     aboutImage: s.aboutImage,
@@ -107,6 +112,8 @@ export async function getServiceBySlug(slug: string): Promise<PublicService | nu
     longDescription: s.longDescription,
     whyUs: s.whyUs,
     seoText: s.seoText,
+    metaTitle: s.metaTitle,
+    metaDescription: s.metaDescription,
     bannerText: s.bannerText,
     keywords: keywords.map((k) => k.keyword),
     idealFor: idealFor.map((i) => i.item),

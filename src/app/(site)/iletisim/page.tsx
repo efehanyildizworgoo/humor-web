@@ -5,10 +5,12 @@ import { readSettings } from "@/lib/settings";
 import { listPublishedServices } from "@/lib/queries/services";
 import { getPageContent } from "@/lib/pageContent";
 
-export const metadata: Metadata = {
-  title: "İletişim",
-  description: "Humor Creative ile iletişime geçin. Yeni projeniz için teklif alın veya detaylı bilgi edinin.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const c = await getPageContent("iletisim");
+  const title = c["iletisim.meta.title"];
+  const description = c["iletisim.meta.description"];
+  return { title, description, openGraph: { title, description } };
+}
 
 export const dynamic = "force-dynamic";
 

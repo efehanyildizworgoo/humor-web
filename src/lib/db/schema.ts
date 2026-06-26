@@ -28,6 +28,7 @@ export const services = pgTable(
     slug: varchar("slug", { length: 191 }).notNull(),
     icon: varchar("icon", { length: 64 }).notNull(), // lucide icon name
     title: text("title").notNull(),
+    menuLabel: text("menu_label").notNull().default(""), // optional short name for nav/mega-menu; falls back to title
     shortDesc: text("short_desc").notNull().default(""),
     heroImage: text("hero_image").notNull().default(""),
     aboutImage: text("about_image").notNull().default(""),
@@ -35,6 +36,8 @@ export const services = pgTable(
     longDescription: text("long_description").notNull().default(""),
     whyUs: text("why_us").notNull().default(""),
     seoText: text("seo_text").notNull().default(""),
+    metaTitle: text("meta_title").notNull().default(""),
+    metaDescription: text("meta_description").notNull().default(""),
     bannerText: text("banner_text").notNull().default(""),
     orderIndex: integer("order_index").notNull().default(0),
     published: boolean("published").notNull().default(true),

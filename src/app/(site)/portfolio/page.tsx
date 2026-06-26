@@ -9,10 +9,12 @@ import {
 import { getPageContent } from "@/lib/pageContent";
 import { readSettings } from "@/lib/settings";
 
-export const metadata: Metadata = {
-  title: "Portföy",
-  description: "Humor Creative projelerini keşfedin. Dijital strateji, sosyal medya, prodüksiyon ve içerik üretimi çalışmalarımız.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const c = await getPageContent("portfolio");
+  const title = c["portfolio.meta.title"];
+  const description = c["portfolio.meta.description"];
+  return { title, description, openGraph: { title, description } };
+}
 
 export const dynamic = "force-dynamic";
 

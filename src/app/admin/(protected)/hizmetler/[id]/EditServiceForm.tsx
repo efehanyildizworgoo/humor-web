@@ -10,6 +10,7 @@ import { Save } from "lucide-react";
 
 type Initial = {
   title: string;
+  menuLabel: string;
   slug: string;
   icon: string;
   shortDesc: string;
@@ -19,6 +20,8 @@ type Initial = {
   longDescription: string;
   whyUs: string;
   seoText: string;
+  metaTitle: string;
+  metaDescription: string;
   bannerText: string;
   published: boolean;
 };
@@ -45,6 +48,10 @@ export default function EditServiceForm({
           <Input name="slug" defaultValue={initial.slug} />
         </Field>
       </div>
+
+      <Field label="Menü İsmi" hint="Menüdeki dropdown'da görünen kısa ad — boşsa başlık kullanılır">
+        <Input name="menuLabel" defaultValue={initial.menuLabel} placeholder={initial.title} />
+      </Field>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <Field label="İkon">
@@ -89,6 +96,23 @@ export default function EditServiceForm({
       <Field label="SEO Metni" hint="Sayfa altı SEO içeriği">
         <RichEditor name="seoText" defaultValue={initial.seoText} placeholder="SEO için anahtar kelimeleri içeren metin…" minHeight={220} />
       </Field>
+
+      <div className="space-y-4 border-t border-[#2a3158] pt-6">
+        <div>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-[#a86dab]">
+            SEO — Meta Etiketleri
+          </h2>
+          <p className="mt-1 text-xs text-[#8b8fa8]">
+            Google sonuçlarında ve tarayıcı sekmesinde görünen başlık ve açıklama. Boş bırakılırsa hizmet başlığı ve açıklaması kullanılır.
+          </p>
+        </div>
+        <Field label="Meta Başlık (title)" hint="~60 karakter — boşsa hizmet başlığı kullanılır">
+          <Input name="metaTitle" defaultValue={initial.metaTitle} placeholder={initial.title} />
+        </Field>
+        <Field label="Meta Açıklama (description)" hint="~155 karakter — boşsa açıklama metninden üretilir">
+          <Textarea name="metaDescription" rows={3} defaultValue={initial.metaDescription} placeholder="Arama sonuçlarında görünecek kısa açıklama…" />
+        </Field>
+      </div>
 
       <div className="flex items-center justify-between border-t border-[#2a3158] pt-4">
         <Checkbox name="published" defaultChecked={initial.published} label="Sitede yayınla" />

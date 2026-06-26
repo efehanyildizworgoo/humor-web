@@ -99,6 +99,7 @@ export async function updateServiceAction(
     .update(services)
     .set({
       title,
+      menuLabel: String(formData.get("menuLabel") ?? "").trim(),
       slug,
       icon: String(formData.get("icon") ?? "FileText"),
       shortDesc: String(formData.get("shortDesc") ?? ""),
@@ -108,6 +109,8 @@ export async function updateServiceAction(
       longDescription: sanitizeRichHtml(String(formData.get("longDescription") ?? "")),
       whyUs: sanitizeRichHtml(String(formData.get("whyUs") ?? "")),
       seoText: sanitizeRichHtml(String(formData.get("seoText") ?? "")),
+      metaTitle: String(formData.get("metaTitle") ?? "").trim(),
+      metaDescription: String(formData.get("metaDescription") ?? "").trim(),
       bannerText: String(formData.get("bannerText") ?? ""),
       published: formData.get("published") === "on",
       updatedAt: new Date(),

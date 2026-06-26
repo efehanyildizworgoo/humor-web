@@ -1,0 +1,1 @@
+ALTER TABLE "services" ADD COLUMN IF NOT EXISTS "menu_label" text DEFAULT '' NOT NULL;

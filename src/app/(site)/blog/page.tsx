@@ -5,10 +5,12 @@ import BlogList from "@/components/BlogList";
 import PageHero from "@/components/PageHero";
 import { getPageContent } from "@/lib/pageContent";
 
-export const metadata: Metadata = {
-  title: "Blog",
-  description: "Humor Creative blog — dijital strateji, sosyal medya, prodüksiyon üzerine yazılar.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const c = await getPageContent("blog");
+  const title = c["blog.meta.title"];
+  const description = c["blog.meta.description"];
+  return { title, description, openGraph: { title, description } };
+}
 
 export const dynamic = "force-dynamic";
 

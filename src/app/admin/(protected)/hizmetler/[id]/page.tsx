@@ -24,6 +24,7 @@ export default async function ServiceMainEditPage({
         id={id}
         initial={{
           title: svc.title,
+          menuLabel: svc.menuLabel,
           slug: svc.slug,
           icon: svc.icon,
           shortDesc: svc.shortDesc,
@@ -33,6 +34,8 @@ export default async function ServiceMainEditPage({
           longDescription: svc.longDescription,
           whyUs: svc.whyUs,
           seoText: svc.seoText,
+          metaTitle: svc.metaTitle,
+          metaDescription: svc.metaDescription,
           bannerText: svc.bannerText,
           published: svc.published,
         }}

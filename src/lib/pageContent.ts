@@ -123,6 +123,14 @@ export const PAGES: PageDefinition[] = [
           { key: "home.seo_text", label: "SEO içeriği", type: "rich", default: "<strong>Ankara Kreatif Ajans</strong> arayışınızda Humor Creative olarak sosyal medya yönetimi, dijital strateji, içerik üretimi, reklam yönetimi ve prodüksiyon hizmetleri sunuyoruz.", colSpan: 2 },
         ],
       },
+      {
+        title: "SEO — Meta Etiketleri",
+        description: "Google sonuçlarında ve tarayıcı sekmesinde görünen başlık ve açıklama.",
+        fields: [
+          { key: "anasayfa.meta.title", label: "Meta Başlık (title)", type: "text", default: "Ankara Merkezli Kreatif Ajans", hint: "~60 karakter — sonuna otomatik \"- Humor\" eklenir", colSpan: 2 },
+          { key: "anasayfa.meta.description", label: "Meta Açıklama (description)", type: "textarea", default: "Strateji, içerik, prodüksiyon. Sınır yok, kalıp yok, sadece iyi fikir var.", hint: "~155 karakter", colSpan: 2 },
+        ],
+      },
     ],
   },
 
@@ -154,6 +162,14 @@ export const PAGES: PageDefinition[] = [
         title: "Hakkımızda — Sağ Kolon",
         fields: [
           { key: "hakkimizda.about.right", label: "Sağ metin (çerçeveli kutu)", type: "rich", default: "<p>Markaların hikayesini sadece anlatmakla yetinmiyoruz; onu hedef kitlenin gözlerini alamayacağı, yaşayan bir deneyime dönüştürüyoruz. Her platformda, her formatta, tutarlı, yaratıcı ve etkileyici.</p><p>Dijital dünyada var olmak yetmez; fark edilmek, hatırlanmak ve tercih edilmek gerekir. Biz tam da bunun için varız. Veriye dayalı stratejilerle yaratıcılığı birleştiriyor, ölçülebilir sonuçlar üretiyoruz.</p><p>Ankara merkezli, Türkiye genelinde hizmet veren ekibimizle her projede tek bir amaçla çalışıyoruz: Markanızı bir adım öteye taşımak.</p>", colSpan: 2 },
+        ],
+      },
+      {
+        title: "SEO — Meta Etiketleri",
+        description: "Google sonuçlarında ve tarayıcı sekmesinde görünen başlık ve açıklama.",
+        fields: [
+          { key: "hakkimizda.meta.title", label: "Meta Başlık (title)", type: "text", default: "Hakkımızda", hint: "~60 karakter", colSpan: 2 },
+          { key: "hakkimizda.meta.description", label: "Meta Açıklama (description)", type: "textarea", default: "Humor Creative, Ankara merkezli kreatif ajans. Stratejiden üretime, fikirden yayına kadar her aşamada yanınızdayız.", hint: "~155 karakter", colSpan: 2 },
         ],
       },
     ],
@@ -257,6 +273,14 @@ export const PAGES: PageDefinition[] = [
           { key: "service_detail.cta.whatsapp", label: "WhatsApp buton", type: "text", default: "WhatsApp'tan Yaz" },
         ],
       },
+      {
+        title: "SEO — Meta Etiketleri (Liste Sayfası)",
+        description: "Hizmetler liste sayfasının (/hizmetler) başlık ve açıklaması. Her hizmetin kendi meta etiketi, ilgili hizmetin düzenleme sayfasındadır.",
+        fields: [
+          { key: "hizmetler.meta.title", label: "Meta Başlık (title)", type: "text", default: "Hizmetler", hint: "~60 karakter", colSpan: 2 },
+          { key: "hizmetler.meta.description", label: "Meta Açıklama (description)", type: "textarea", default: "Sosyal medya yönetimi, dijital strateji, içerik üretimi, reklam yönetimi, prodüksiyon, drone çekimi, canlı yayın ve senaryo yazımı hizmetlerimiz.", hint: "~155 karakter", colSpan: 2 },
+        ],
+      },
     ],
   },
 
@@ -304,6 +328,14 @@ export const PAGES: PageDefinition[] = [
           { key: "project_detail.other.title", label: "Başlık", type: "text", default: "Daha Fazlasını Keşfedin" },
         ],
       },
+      {
+        title: "SEO — Meta Etiketleri (Liste Sayfası)",
+        description: "Portfolyo liste sayfasının (/portfolio) başlık ve açıklaması.",
+        fields: [
+          { key: "portfolio.meta.title", label: "Meta Başlık (title)", type: "text", default: "Portföy", hint: "~60 karakter", colSpan: 2 },
+          { key: "portfolio.meta.description", label: "Meta Açıklama (description)", type: "textarea", default: "Humor Creative projelerini keşfedin. Dijital strateji, sosyal medya, prodüksiyon ve içerik üretimi çalışmalarımız.", hint: "~155 karakter", colSpan: 2 },
+        ],
+      },
     ],
   },
 
@@ -324,6 +356,14 @@ export const PAGES: PageDefinition[] = [
           { key: "iletisim.hero.image", label: "Hero arka plan görseli", type: "image", default: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80", colSpan: 2 },
         ],
       },
+      {
+        title: "SEO — Meta Etiketleri",
+        description: "Google sonuçlarında ve tarayıcı sekmesinde görünen başlık ve açıklama.",
+        fields: [
+          { key: "iletisim.meta.title", label: "Meta Başlık (title)", type: "text", default: "İletişim", hint: "~60 karakter", colSpan: 2 },
+          { key: "iletisim.meta.description", label: "Meta Açıklama (description)", type: "textarea", default: "Humor Creative ile iletişime geçin. Yeni projeniz için teklif alın veya detaylı bilgi edinin.", hint: "~155 karakter", colSpan: 2 },
+        ],
+      },
     ],
   },
 
@@ -342,6 +382,14 @@ export const PAGES: PageDefinition[] = [
           { key: "blog.hero.title_highlight", label: "Vurgulu kelime", type: "text", default: "Hikayeler" },
           { key: "blog.hero.subtitle", label: "Alt metin", type: "textarea", default: "Dijital strateji, içerik üretimi ve prodüksiyon üzerine yazılar.", colSpan: 2 },
           { key: "blog.hero.image", label: "Hero arka plan görseli", type: "image", default: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1600&q=80", colSpan: 2 },
+        ],
+      },
+      {
+        title: "SEO — Meta Etiketleri",
+        description: "Google sonuçlarında ve tarayıcı sekmesinde görünen başlık ve açıklama.",
+        fields: [
+          { key: "blog.meta.title", label: "Meta Başlık (title)", type: "text", default: "Blog", hint: "~60 karakter", colSpan: 2 },
+          { key: "blog.meta.description", label: "Meta Açıklama (description)", type: "textarea", default: "Humor Creative blog — dijital strateji, sosyal medya, prodüksiyon üzerine yazılar.", hint: "~155 karakter", colSpan: 2 },
         ],
       },
     ],

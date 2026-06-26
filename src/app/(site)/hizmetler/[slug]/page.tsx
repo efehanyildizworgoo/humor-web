@@ -30,9 +30,18 @@ export async function generateMetadata({
   const { slug } = await params;
   const service = await getServiceBySlug(slug);
   if (!service) return {};
+  const title = service.metaTitle || service.title;
+  const description =
+    service.metaDescription || htmlToPlainText(service.description, 160);
   return {
-    title: service.title,
-    description: htmlToPlainText(service.description, 160),
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      images: service.heroImage ? [{ url: service.heroImage }] : undefined,
+    },
   };
 }
 

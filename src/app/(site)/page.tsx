@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import HomeAbout from "@/components/HomeAbout";
 import ServicesCarousel from "@/components/ServicesCarousel";
@@ -11,6 +12,13 @@ import { getPageContent } from "@/lib/pageContent";
 import { readSettings } from "@/lib/settings";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const c = await getPageContent("anasayfa");
+  const title = c["anasayfa.meta.title"];
+  const description = c["anasayfa.meta.description"];
+  return { title, description, openGraph: { title, description } };
+}
 
 export default async function Home() {
   const [services, stats, testimonials, c, contact] = await Promise.all([

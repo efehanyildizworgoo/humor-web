@@ -8,10 +8,12 @@ import { listFaqs } from "@/lib/queries/content";
 import { getPageContent } from "@/lib/pageContent";
 import { readSettings } from "@/lib/settings";
 
-export const metadata: Metadata = {
-  title: "Hizmetler",
-  description: "Sosyal medya yönetimi, dijital strateji, içerik üretimi, reklam yönetimi, prodüksiyon, drone çekimi, canlı yayın ve senaryo yazımı hizmetlerimiz.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const c = await getPageContent("hizmetler");
+  const title = c["hizmetler.meta.title"];
+  const description = c["hizmetler.meta.description"];
+  return { title, description, openGraph: { title, description } };
+}
 
 export const dynamic = "force-dynamic";
 

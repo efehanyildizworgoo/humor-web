@@ -43,3 +43,6 @@ next-env.d.ts
 # uploaded files
 public/uploads/*
 !public/uploads/.gitkeep
+
+# deploy tarballs (built ad-hoc for CapRover tarball upload)
+*.tar.gz
