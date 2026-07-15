@@ -1,8 +1,9 @@
 import { db } from "@/lib/db";
-import { navItems, footerLinks } from "@/lib/db/schema";
+import { navItems, footerLinks, services } from "@/lib/db/schema";
 import { asc } from "drizzle-orm";
 import { PageHeader, Card } from "../_components/ui";
 import CollectionEditor from "../_components/CollectionEditor";
+import MegaMenuEditor from "./MegaMenuEditor";
 import {
   addNavAction,
   updateNavAction,
@@ -18,9 +19,20 @@ export const metadata = { title: "Menü" };
 export const dynamic = "force-dynamic";
 
 export default async function MenuPage() {
-  const [navs, footers] = await Promise.all([
+  const [navs, footers, svcs] = await Promise.all([
     db.select().from(navItems).orderBy(asc(navItems.orderIndex), asc(navItems.id)),
     db.select().from(footerLinks).orderBy(asc(footerLinks.section), asc(footerLinks.orderIndex), asc(footerLinks.id)),
+    db
+      .select({
+        id: services.id,
+        title: services.title,
+        menuLabel: services.menuLabel,
+        icon: services.icon,
+        slug: services.slug,
+        published: services.published,
+      })
+      .from(services)
+      .orderBy(asc(services.orderIndex), asc(services.id)),
   ]);
 
   return (
@@ -49,6 +61,19 @@ export default async function MenuPage() {
             move: moveNavAction,
           }}
         />
+      </Card>
+
+      <Card>
+        <h2 className="mb-1 text-sm font-semibold uppercase tracking-wider text-[#a86dab]">
+          Mega Menü (Hizmetler)
+        </h2>
+        <p className="mb-4 text-xs text-[#8b8fa8]">
+          &quot;Hizmetler&quot; menüsünün açılır (dropdown) listesindeki isimler. Boş bırakılan
+          isim, sitede hizmetin başlığına döner. Hizmet eklemek/silmek için{" "}
+          <a href="/admin/hizmetler" className="text-[#a86dab] hover:underline">Hizmetler</a>{" "}
+          bölümünü kullan.
+        </p>
+        <MegaMenuEditor items={svcs} />
       </Card>
 
       <Card>

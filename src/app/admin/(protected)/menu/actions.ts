@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { navItems, footerLinks } from "@/lib/db/schema";
+import { navItems, footerLinks, services } from "@/lib/db/schema";
 import { eq, asc, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { requireSession } from "@/lib/auth";
@@ -110,5 +110,17 @@ export async function moveFooterAction(id: number, dir: "up" | "down") {
     await tx.update(footerLinks).set({ orderIndex: a.orderIndex }).where(eq(footerLinks.id, b.id));
   });
   revalidatePath("/admin/menu");
+  revalidateSite();
+}
+
+// ============ mega menu (hizmet menü isimleri) ============
+// Sadece hizmetin menu_label alanını günceller — mega menüde görünen kısa ad.
+// Boş bırakılırsa sitede hizmet başlığına düşer (bkz. (site)/layout.tsx).
+export async function updateMegaLabelAction(id: number, formData: FormData) {
+  await requireSession();
+  const menuLabel = String(formData.get("menuLabel") ?? "").trim();
+  await db.update(services).set({ menuLabel }).where(eq(services.id, id));
+  revalidatePath("/admin/menu");
+  revalidatePath("/hizmetler");
   revalidateSite();
 }
