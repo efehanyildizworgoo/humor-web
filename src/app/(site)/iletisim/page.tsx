@@ -4,12 +4,15 @@ import PageHero from "@/components/PageHero";
 import { readSettings } from "@/lib/settings";
 import { listPublishedServices } from "@/lib/queries/services";
 import { getPageContent } from "@/lib/pageContent";
+import { pageSeo } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getPageContent("iletisim");
-  const title = c["iletisim.meta.title"];
-  const description = c["iletisim.meta.description"];
-  return { title, description, openGraph: { title, description } };
+  return pageSeo({
+    path: "/iletisim",
+    title: c["iletisim.meta.title"],
+    description: c["iletisim.meta.description"],
+  });
 }
 
 export const dynamic = "force-dynamic";

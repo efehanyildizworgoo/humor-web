@@ -10,6 +10,7 @@ import {
 import { htmlToPlainText } from "@/lib/sanitize";
 import { getPageContent } from "@/lib/pageContent";
 import { readSettings } from "@/lib/settings";
+import { pageSeo } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -30,19 +31,13 @@ export async function generateMetadata({
   const { slug } = await params;
   const service = await getServiceBySlug(slug);
   if (!service) return {};
-  const title = service.metaTitle || service.title;
-  const description =
-    service.metaDescription || htmlToPlainText(service.description, 160);
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: "website",
-      images: service.heroImage ? [{ url: service.heroImage }] : undefined,
-    },
-  };
+  return pageSeo({
+    path: `/hizmetler/${slug}`,
+    title: service.metaTitle || service.title,
+    description:
+      service.metaDescription || htmlToPlainText(service.description, 160),
+    image: service.heroImage || undefined,
+  });
 }
 
 export default async function ServicePage({

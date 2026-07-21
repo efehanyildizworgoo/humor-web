@@ -10,14 +10,17 @@ import { listPublishedServices } from "@/lib/queries/services";
 import { listStats, listTestimonials } from "@/lib/queries/content";
 import { getPageContent } from "@/lib/pageContent";
 import { readSettings } from "@/lib/settings";
+import { pageSeo } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getPageContent("anasayfa");
-  const title = c["anasayfa.meta.title"];
-  const description = c["anasayfa.meta.description"];
-  return { title, description, openGraph: { title, description } };
+  return pageSeo({
+    path: "/",
+    title: c["anasayfa.meta.title"],
+    description: c["anasayfa.meta.description"],
+  });
 }
 
 export default async function Home() {

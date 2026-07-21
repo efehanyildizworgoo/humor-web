@@ -8,12 +8,15 @@ import {
 } from "@/lib/queries/projects";
 import { getPageContent } from "@/lib/pageContent";
 import { readSettings } from "@/lib/settings";
+import { pageSeo } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getPageContent("portfolio");
-  const title = c["portfolio.meta.title"];
-  const description = c["portfolio.meta.description"];
-  return { title, description, openGraph: { title, description } };
+  return pageSeo({
+    path: "/portfolio",
+    title: c["portfolio.meta.title"],
+    description: c["portfolio.meta.description"],
+  });
 }
 
 export const dynamic = "force-dynamic";

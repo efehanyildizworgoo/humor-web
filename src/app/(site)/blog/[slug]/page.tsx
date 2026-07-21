@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getPublishedPostBySlug, listPublishedPosts, listPublishedPostSlugs } from "@/lib/queries/blog";
 import { htmlToPlainText } from "@/lib/sanitize";
+import { pageSeo, absoluteUrl } from "@/lib/seo";
 import SafeHtml from "@/components/SafeHtml";
 import { Calendar, User } from "lucide-react";
 
@@ -24,18 +25,15 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getPublishedPostBySlug(slug);
   if (!post) return {};
-  return {
+  return pageSeo({
+    path: `/blog/${slug}`,
     title: post.seoTitle || post.title,
     description: post.seoDescription || htmlToPlainText(post.excerpt || post.content, 160),
-    openGraph: {
-      title: post.seoTitle || post.title,
-      description: post.seoDescription || htmlToPlainText(post.excerpt || post.content, 160),
-      type: "article",
-      publishedTime: post.publishedAt ?? undefined,
-      authors: post.author ? [post.author] : undefined,
-      images: post.coverImage ? [{ url: post.coverImage }] : undefined,
-    },
-  };
+    type: "article",
+    image: post.coverImage || undefined,
+    publishedTime: post.publishedAt ?? undefined,
+    authors: post.author ? [post.author] : undefined,
+  });
 }
 
 export default async function BlogPostPage({
@@ -54,13 +52,15 @@ export default async function BlogPostPage({
     "@type": "BlogPosting",
     headline: post.title,
     description: post.seoDescription || htmlToPlainText(post.excerpt || post.content, 200),
-    image: post.coverImage ? [post.coverImage] : undefined,
+    // schema.org mutlak URL ister; coverImage/logo DB'de göreli tutuluyor.
+    image: post.coverImage ? [absoluteUrl(post.coverImage)] : undefined,
     datePublished: post.publishedAt ?? undefined,
+    mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(`/blog/${slug}`) },
     author: post.author ? { "@type": "Person", name: post.author } : { "@type": "Organization", name: "Humor" },
     publisher: {
       "@type": "Organization",
       name: "Humor",
-      logo: { "@type": "ImageObject", url: "/logo-white.svg" },
+      logo: { "@type": "ImageObject", url: absoluteUrl("/logo-white.svg") },
     },
   };
 

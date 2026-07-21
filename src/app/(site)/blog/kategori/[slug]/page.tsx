@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getCategoryBySlug, listPublishedPosts, listCategories } from "@/lib/queries/blog";
 import BlogList from "@/components/BlogList";
+import { pageSeo } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -14,10 +15,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const cat = await getCategoryBySlug(slug);
   if (!cat) return {};
-  return {
+  return pageSeo({
+    path: `/blog/kategori/${slug}`,
     title: `${cat.name} | Blog`,
     description: cat.description || `${cat.name} kategorisindeki yazılar`,
-  };
+  });
 }
 
 export default async function BlogCategoryPage({

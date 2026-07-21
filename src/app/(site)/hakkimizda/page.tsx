@@ -5,12 +5,15 @@ import Stats from "@/components/Stats";
 import PageHero from "@/components/PageHero";
 import { listStats, listTestimonials } from "@/lib/queries/content";
 import { getPageContent } from "@/lib/pageContent";
+import { pageSeo } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getPageContent("hakkimizda");
-  const title = c["hakkimizda.meta.title"];
-  const description = c["hakkimizda.meta.description"];
-  return { title, description, openGraph: { title, description } };
+  return pageSeo({
+    path: "/hakkimizda",
+    title: c["hakkimizda.meta.title"],
+    description: c["hakkimizda.meta.description"],
+  });
 }
 
 export const dynamic = "force-dynamic";

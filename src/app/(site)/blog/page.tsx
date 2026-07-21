@@ -4,12 +4,15 @@ import { listPublishedPosts, listCategories } from "@/lib/queries/blog";
 import BlogList from "@/components/BlogList";
 import PageHero from "@/components/PageHero";
 import { getPageContent } from "@/lib/pageContent";
+import { pageSeo } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getPageContent("blog");
-  const title = c["blog.meta.title"];
-  const description = c["blog.meta.description"];
-  return { title, description, openGraph: { title, description } };
+  return pageSeo({
+    path: "/blog",
+    title: c["blog.meta.title"],
+    description: c["blog.meta.description"],
+  });
 }
 
 export const dynamic = "force-dynamic";

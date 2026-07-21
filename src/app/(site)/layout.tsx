@@ -26,23 +26,21 @@ const KEYWORDS = [
 ];
 
 export async function generateMetadata(): Promise<Metadata> {
+  // Site geneli, TÜM sayfalarca miras alınan alanlar (keywords/robots/icons).
+  // Canonical ve OpenGraph her sayfada `pageSeo` ile ayrı üretilir — burada
+  // set edilirlerse sığ-birleşme yüzünden ya yanlış (ana sayfa) canonical
+  // miras kalır ya da sayfa OG'si onları ezerdi.
   let brand: Record<string, string> = {};
   try {
     brand = await getPageContent("marka");
   } catch {
-    // DB hiccup — keep og/twitter on defaults instead of dropping the whole
-    // segment (which would let title fall back to root layout's default).
+    // DB hiccup — icons/robots defaults on düşer.
   }
-  const ogImage = brand["brand.og_image"] || "/og-image.jpg";
   const faviconRaw = (brand["brand.favicon"] || "").trim();
   const appleRaw = (brand["brand.apple_icon"] || "").trim();
   const favicon = faviconRaw || appleRaw || "/favicon.ico";
   const appleIcon = appleRaw || faviconRaw || "";
   const siteName = brand["brand.site_name"] || "Humor";
-  const ogTitle = brand["brand.og_title"] || "Humor | Ankara Kreatif Ajans";
-  const ogDescription =
-    brand["brand.og_description"] ||
-    "Strateji, içerik, prodüksiyon. Sınır yok, kalıp yok, sadece iyi fikir var.";
 
   return {
     keywords: KEYWORDS,
@@ -60,26 +58,10 @@ export async function generateMetadata(): Promise<Metadata> {
         "max-snippet": -1,
       },
     },
-    alternates: { canonical: siteUrl },
     icons: {
       icon: favicon,
       shortcut: favicon,
       ...(appleIcon ? { apple: appleIcon } : {}),
-    },
-    openGraph: {
-      title: ogTitle,
-      description: ogDescription,
-      url: siteUrl,
-      siteName,
-      locale: "tr_TR",
-      type: "website",
-      images: [{ url: ogImage, width: 1200, height: 630, alt: siteName }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: ogTitle,
-      description: ogDescription,
-      images: [ogImage],
     },
   };
 }

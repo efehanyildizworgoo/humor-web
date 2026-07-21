@@ -9,6 +9,7 @@ import {
 } from "@/lib/queries/projects";
 import { getPageContent } from "@/lib/pageContent";
 import { htmlToPlainText } from "@/lib/sanitize";
+import { pageSeo } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -28,10 +29,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = await getProjectBySlug(slug);
   if (!project) return {};
-  return {
+  return pageSeo({
+    path: `/portfolio/${slug}`,
     title: `${project.title} | Portföy`,
     description: htmlToPlainText(project.desc, 160),
-  };
+  });
 }
 
 export default async function ProjectDetailPage({

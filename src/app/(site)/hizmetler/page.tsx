@@ -7,12 +7,15 @@ import { listPublishedServices } from "@/lib/queries/services";
 import { listFaqs } from "@/lib/queries/content";
 import { getPageContent } from "@/lib/pageContent";
 import { readSettings } from "@/lib/settings";
+import { pageSeo } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getPageContent("hizmetler");
-  const title = c["hizmetler.meta.title"];
-  const description = c["hizmetler.meta.description"];
-  return { title, description, openGraph: { title, description } };
+  return pageSeo({
+    path: "/hizmetler",
+    title: c["hizmetler.meta.title"],
+    description: c["hizmetler.meta.description"],
+  });
 }
 
 export const dynamic = "force-dynamic";
