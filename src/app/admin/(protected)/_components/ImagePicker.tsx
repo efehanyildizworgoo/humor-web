@@ -3,6 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import { Image as ImageIcon, X, Upload, Loader2, Check } from "lucide-react";
 import { uploadImageAction } from "../gorseller/actions";
+import { MAX_UPLOAD_LABEL, validateUploadFile } from "@/lib/upload-limits";
 
 type LibraryItem = { id: number; url: string; filename: string; createdAt: string };
 
@@ -119,16 +120,27 @@ function PickerModal({
     startUpload(async () => {
       setError(null);
       for (const f of list) {
+        // Reject locally first — an oversized body throws inside the Server
+        // Action and React tears down the whole admin page.
+        const localErr = validateUploadFile(f);
+        if (localErr) {
+          setError(localErr);
+          continue;
+        }
         const fd = new FormData();
         fd.append("file", f);
-        const res = await uploadImageAction(fd);
-        if (res.ok) {
-          setItems((prev) => [
-            { id: res.id, url: res.url, filename: res.filename, createdAt: new Date().toISOString() },
-            ...(prev ?? []),
-          ]);
-        } else {
-          setError(res.error);
+        try {
+          const res = await uploadImageAction(fd);
+          if (res.ok) {
+            setItems((prev) => [
+              { id: res.id, url: res.url, filename: res.filename, createdAt: new Date().toISOString() },
+              ...(prev ?? []),
+            ]);
+          } else {
+            setError(res.error);
+          }
+        } catch {
+          setError(`"${f.name}" yüklenemedi. Dosya ${MAX_UPLOAD_LABEL} sınırının altında mı ve bağlantın açık mı kontrol et.`);
         }
       }
     });

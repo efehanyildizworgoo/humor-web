@@ -16,15 +16,15 @@ export function getUploadDir(): string {
 
 export const PUBLIC_PREFIX = "/uploads";
 
-export const MAX_UPLOAD_BYTES = 10 * 1024 * 1024; // 10 MB
-export const ALLOWED_MIME = new Set([
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/gif",
-  "image/svg+xml",
-  "image/avif",
-]);
+// Limits live in a client-safe module so the admin UI can validate before
+// sending; re-exported here to keep existing server-side imports working.
+export {
+  MAX_UPLOAD_BYTES,
+  ALLOWED_MIME,
+  MAX_UPLOAD_LABEL,
+  formatBytes,
+  validateUploadFile,
+} from "./upload-limits";
 
 export function extFromMime(mime: string): string {
   switch (mime) {

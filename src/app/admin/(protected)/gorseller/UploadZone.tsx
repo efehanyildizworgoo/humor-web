@@ -3,6 +3,7 @@
 import { useRef, useState, useTransition } from "react";
 import { Upload, Loader2 } from "lucide-react";
 import { uploadImageAction, type UploadResult } from "./actions";
+import { MAX_UPLOAD_LABEL, validateUploadFile } from "@/lib/upload-limits";
 
 export default function UploadZone({
   onUploaded,
@@ -22,13 +23,27 @@ export default function UploadZone({
     setProgress({ done: 0, total: list.length });
     let firstErr: string | null = null;
     for (let i = 0; i < list.length; i++) {
+      // Validate here: an oversized body makes the Server Action throw before
+      // our own check runs, and that error takes the whole page down.
+      const localErr = validateUploadFile(list[i]);
+      if (localErr) {
+        if (!firstErr) firstErr = localErr;
+        setProgress({ done: i + 1, total: list.length });
+        continue;
+      }
       const fd = new FormData();
       fd.append("file", list[i]);
-      const res: UploadResult = await uploadImageAction(fd);
-      if (res.ok) {
-        onUploaded?.({ url: res.url, id: res.id });
-      } else if (!firstErr) {
-        firstErr = res.error;
+      try {
+        const res: UploadResult = await uploadImageAction(fd);
+        if (res.ok) {
+          onUploaded?.({ url: res.url, id: res.id });
+        } else if (!firstErr) {
+          firstErr = res.error;
+        }
+      } catch {
+        if (!firstErr) {
+          firstErr = `"${list[i].name}" yüklenemedi. Dosya ${MAX_UPLOAD_LABEL} sınırının altında mı ve bağlantın açık mı kontrol et.`;
+        }
       }
       setProgress({ done: i + 1, total: list.length });
     }
