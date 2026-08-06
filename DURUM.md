@@ -12,10 +12,11 @@
 
 - **Görsel yükleme çökmesi giderildi (2026-08-06, canlıda doğrulandı, img `:19`):** Panelde 1 MB'ı aşan her görselde sayfa "This page couldn't load" ile çöküyordu. Kök neden: yükleme bir **Server Action** üzerinden gidiyor ve Next.js'in varsayılan `serverActions.bodySizeLimit` değeri **1 MB** — UI'ın vaat ettiği 10 MB'ın çok altında. Action 413 fırlatıyor, hata Server Components render'ına düşüp tüm admin sayfasını düşürüyordu (sunucu logu: `uncaughtException: Body exceeded 1 MB limit`). Düzeltme: `next.config.ts`'e `bodySizeLimit: "12mb"`; boyut/format kuralları client-safe `src/lib/upload-limits.ts`'e alındı; `UploadZone` + `ImagePicker` gönderimden ÖNCE doğruluyor ve action çağrısı `try/catch` içinde. Canlı ölçüm: 1.36 MB → yükleniyor; 11 MB → sayfa ayakta, Türkçe hata; 375px'te taşma yok.
 
+- **Kırık görsel kaydı temizlendi (2026-08-06):** `mppl5qgm-f8a0adb1-favicon.png` kaydı DB'de vardı ama dosya diskte yoktu (volume eklenmeden önce yüklenmiş, bir deploy'da silinmiş). Silmeden önce içerik tablolarının tamamı (`projects/services/blog_posts/*_gallery/testimonials/site_settings/nav/footer`) tarandı — hiçbir yerde kullanılmıyordu; `uploads` tablosunun yedeği sunucuda `/root/humor-uploads-yedek-2026-08-06.sql`. Sonuç: DB 6 kayıt = diskte 6 dosya, panelde kırık önizleme kalmadı.
+
 ## Kalan işler (numaralı)
 1. **İçerik (admin panel):** (a) `/hizmetler/seo` metaTitle'da **"Ankar SEO" → "Ankara SEO"** yazım hatası (title/og:title). (b) Ana sayfa meta başlığı sonundaki fazla boşluk (kod `.trim()` ile artık kırpıyor ama içerik de temizlenebilir). Not: OG görseli artık kod default'u (`/og-image.jpg`) ile geliyor; istenirse Marka panelinden özel görsel de yüklenebilir.
 2. **Opsiyonel schema iyileştirmeleri:** LocalBusiness `address` düz metin → `PostalAddress` (ideali: panele ayrı adres alanları; hardcode etme, posta kodu doğrula). Ana sayfaya `WebSite` schema (SearchAction EKLEME — site içi arama yok). Detay/kategori sayfalarına `BreadcrumbList`.
-3. **Kırık görsel kaydı (senin kararın):** Görseller listesinde `mppl5qgm-f8a0adb1-favicon.png` kaydı var ama dosya diskte yok (volume eklenmeden önce yüklenmiş, bir deploy'da silinmiş) → panelde kırık önizleme olarak duruyor. Temizlemek istersen panelden sil butonuyla kaldırılır.
 4. **Opsiyonel:** `sitemap.ts` lastModified her istekte `new Date()` — gerçek `updatedAt`'ten türet (DB'de updatedAt mevcut). `layout.tsx` keywords meta tüm sayfalarda aynı (Google yok sayar; kaldırılabilir).
 
 ## Verilen kararlar ve kurallar
