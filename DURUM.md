@@ -24,3 +24,13 @@
 - Deploy: humor-web **webhook YOK** → API-deploy (git archive + `appData?detached=1`, humor-cam reçetesi). Deploy canlı veriye/çalışan siteye dokunmaz (sıfır kesinti).
 - Sayfa başlığı ayracı: `- Humor` (`| Humor` değil).
 - **Server Action ile dosya yükleyen her yerde `serverActions.bodySizeLimit` UI'ın vaat ettiği sınırın ÜSTÜNDE olmalı.** Varsayılan 1 MB'tır ve aşıldığında hata action içinde yakalanamaz — sayfayı komple düşürür. İstemcide de gönderimden önce boyut/format doğrula (`validateUploadFile`), action çağrısını `try/catch`'e al.
+
+
+## WhatsApp formları — 4 Ekim 2026
+- Kullanıcı kararı: iletişim ve Teklif Al formları Samsun Parkeci örneğindeki gibi form bilgilerini WhatsApp mesajına aktarır. Son gönderim WhatsApp içinde kullanıcı tarafından yapılır.
+- Form gönderiminde senkron wa.me açılışı, tüm alanları içeren Türkçe mesaj, URL kodlama, alan doğrulaması ve açılış engellenirse görünür yeniden açma bağlantısı eklendi. Mevcut iletişim panel kaydı korunur; form alanları silinmez.
+- WhatsApp numarası panel ayarından gelir; mevcut canlı varsayılan 905400065544.
+- TypeScript ve DB’siz production build geçti; WhatsApp helper gerçek Chromium DOM üzerinde Türkçe/özel karakter, numara normalizasyonu ve boşluk doğrulamasından geçti.
+- Genel tasarım kapısında mevcut tasarımdan gelen bulgular var; öncesiyle karşılaştırılıyor. Bu paket yeniden tasarım içermez.
+- Orca çalışma alanı: /Users/efehanyildiz/orca/workspaces/humor-web/humor-whatsapp
+- Yayın: hazırlanıyor. Canlı form testleri tamamlanınca bu satır güncellenecek.

@@ -1,9 +1,11 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useActionState } from "react";
+import { useRef, useState } from "react";
 import { Send, MapPin, Phone, Mail } from "lucide-react";
-import { submitContactAction, type ContactState } from "@/app/(site)/iletisim/actions";
+import { submitContactAction } from "@/app/(site)/iletisim/actions";
+
+import { prepareWhatsApp, clearFormValidity, whatsappNumber } from "@/lib/whatsapp";
 
 type ServiceOption = { value: string; label: string };
 
@@ -13,15 +15,30 @@ export default function Contact({
   social,
 }: {
   serviceOptions: ServiceOption[];
-  contact: { phone?: string; email?: string; address?: string };
+  contact: { whatsapp?: string; phone?: string; email?: string; address?: string };
   social: { instagram?: string; youtube?: string; linkedin?: string; twitter?: string };
 }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [state, action, pending] = useActionState<ContactState, FormData>(
-    submitContactAction,
-    {},
-  );
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState("");
+  const [whatsappUrl, setWhatsappUrl] = useState("");
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (pending) return;
+    const prepared = prepareWhatsApp(event.currentTarget, whatsappNumber(contact.whatsapp, contact.phone), "Humor Kreatif — İletişim");
+    if (!prepared) return;
+    setWhatsappUrl(prepared.url);
+    window.open(prepared.url, "_blank", "noopener,noreferrer");
+    setPending(true);
+    setError("");
+    try {
+      const result = await submitContactAction({}, prepared.data);
+      if (result.error) setError("Form kaydı alınamadı. WhatsApp bağlantısını kullanabilirsiniz.");
+    } catch {
+      setError("Form kaydı alınamadı. WhatsApp bağlantısını kullanabilirsiniz.");
+    } finally { setPending(false); }
+  };
 
   const cleanPhone = contact.phone ? contact.phone.replace(/[^0-9+]/g, "") : "";
 
@@ -101,7 +118,7 @@ export default function Contact({
             transition={{ duration: 1, delay: 0.3 }}
             className="lg:col-span-3"
           >
-            <form action={action} className="space-y-6">
+            <form onSubmit={handleSubmit} onInput={(event) => { clearFormValidity(event.currentTarget); setWhatsappUrl(""); }} className="space-y-6">
               <div className="grid sm:grid-cols-2 gap-6">
                 <div>
                   <label className="text-[11px] uppercase tracking-[0.2em] text-white/30 mb-2 block">Ad Soyad</label>
@@ -145,29 +162,14 @@ export default function Contact({
               </div>
 
               <div className="pt-4">
-                {state.ok ? (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-[var(--color-accent)] text-sm"
-                  >
-                    ✓ Mesajınız başarıyla gönderildi. En kısa sürede dönüş yapacağız.
-                  </motion.div>
-                ) : (
-                  <>
-                    {state.error ? (
-                      <p className="mb-3 text-red-300 text-sm">{state.error}</p>
-                    ) : null}
-                    <button
-                      type="submit"
-                      disabled={pending}
-                      className="inline-flex items-center gap-3 px-10 py-3.5 bg-[var(--color-accent)] text-black text-[13px] uppercase tracking-[0.2em] font-semibold hover:bg-[var(--color-accent-light)] transition-all duration-300 disabled:opacity-60"
-                    >
-                      <Send size={14} />
-                      {pending ? "Gönderiliyor…" : "Gönder"}
-                    </button>
-                  </>
-                )}
+                <button type="submit" disabled={pending} className="inline-flex items-center gap-3 px-6 sm:px-10 py-3.5 bg-[var(--color-accent)] text-black text-[13px] uppercase tracking-[0.2em] font-semibold hover:bg-[var(--color-accent-light)] transition-all duration-300 disabled:opacity-60">
+                  <Send size={14} /> WhatsApp ile gönder
+                </button>
+                <div className="mt-4 space-y-3">
+                <p className="text-white/60 text-sm leading-relaxed">Mesajınız WhatsApp’ta hazırlanır. Göndermek için WhatsApp’taki gönder düğmesine basın.</p>
+                {whatsappUrl && <p role="status" className="text-sm text-white/80">WhatsApp açılmadıysa veya yeniden açmak için: <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="underline text-[var(--color-accent)]">WhatsApp’ı aç</a></p>}
+                {error && <p role="status" className="text-amber-200 text-sm">{error}</p>}
+                </div>
               </div>
             </form>
           </motion.div>

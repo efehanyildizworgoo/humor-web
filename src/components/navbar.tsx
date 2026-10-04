@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { prepareWhatsApp, clearFormValidity } from "@/lib/whatsapp";
 import { Menu, X, Send, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { Icon } from "@/lib/icons";
@@ -10,11 +11,13 @@ type NavLink = { label: string; href: string };
 type MegaService = { icon: string; title: string; desc: string; href: string };
 
 export default function Navbar({
+  whatsapp = "",
   navLinks,
   megaServices,
   logoUrl = "/logo-white.svg",
   siteName = "Humor",
 }: {
+  whatsapp?: string;
   navLinks: NavLink[];
   megaServices: MegaService[];
   logoUrl?: string;
@@ -24,6 +27,14 @@ export default function Navbar({
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showQuote, setShowQuote] = useState(false);
+  const [whatsappUrl, setWhatsappUrl] = useState("");
+  const handleQuote = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const prepared = prepareWhatsApp(event.currentTarget, whatsapp, "Humor Kreatif — Teklif talebi");
+    if (!prepared) return;
+    setWhatsappUrl(prepared.url);
+    window.open(prepared.url, "_blank", "noopener,noreferrer");
+  };
   const [megaOpen, setMegaOpen] = useState(false);
   const megaTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -93,7 +104,7 @@ export default function Navbar({
 
           {/* CTA */}
           <button
-            onClick={() => setShowQuote(true)}
+            onClick={() => { setWhatsappUrl(""); setShowQuote(true); }}
             className="hidden md:inline-flex text-[13px] uppercase tracking-[0.15em] px-6 py-2.5 border border-white/80 text-white hover:bg-white hover:text-black transition-all duration-300"
           >
             Teklif Al!
@@ -186,7 +197,7 @@ export default function Navbar({
               </motion.div>
             ))}
             <motion.button
-              onClick={() => { setMobileOpen(false); setShowQuote(true); }}
+              onClick={() => { setMobileOpen(false); setWhatsappUrl(""); setShowQuote(true); }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
@@ -206,18 +217,18 @@ export default function Navbar({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
-            onClick={() => setShowQuote(false)}
+            onClick={() => { setWhatsappUrl(""); setShowQuote(false); }}
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="relative w-full max-w-lg bg-[#111729] border border-[var(--color-border)] p-8 lg:p-10"
+              className="relative w-full max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto bg-[#111729] border border-[var(--color-border)] p-8 lg:p-10"
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                onClick={() => setShowQuote(false)}
+                onClick={() => { setWhatsappUrl(""); setShowQuote(false); }}
                 className="absolute top-4 right-4 text-white/30 hover:text-white transition-colors"
               >
                 <X size={20} />
@@ -233,24 +244,26 @@ export default function Navbar({
                 Projenizi Anlatın
               </h3>
 
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+              <form className="space-y-4" onSubmit={handleQuote} onInput={(event) => { clearFormValidity(event.currentTarget); setWhatsappUrl(""); }}>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <input type="text" placeholder="Adınız" className="w-full bg-[#0d1220] border border-[var(--color-border)] px-4 py-3 text-[14px] text-white placeholder:text-white/20 focus:border-[var(--color-accent)]/40 focus:outline-none transition-colors" />
-                  <input type="email" placeholder="E-posta" className="w-full bg-[#0d1220] border border-[var(--color-border)] px-4 py-3 text-[14px] text-white placeholder:text-white/20 focus:border-[var(--color-accent)]/40 focus:outline-none transition-colors" />
+                  <input name="name" required aria-label="Ad Soyad" type="text" placeholder="Adınız" className="w-full bg-[#0d1220] border border-[var(--color-border)] px-4 py-3 text-[14px] text-white placeholder:text-white/20 focus:border-[var(--color-accent)]/40 focus:outline-none transition-colors" />
+                  <input name="email" required aria-label="E-posta" type="email" placeholder="E-posta" className="w-full bg-[#0d1220] border border-[var(--color-border)] px-4 py-3 text-[14px] text-white placeholder:text-white/20 focus:border-[var(--color-accent)]/40 focus:outline-none transition-colors" />
                 </div>
-                <input type="tel" placeholder="Telefon" className="w-full bg-[#0d1220] border border-[var(--color-border)] px-4 py-3 text-[14px] text-white placeholder:text-white/20 focus:border-[var(--color-accent)]/40 focus:outline-none transition-colors" />
-                <select name="subject" className="w-full bg-[#0d1220] border border-[var(--color-border)] px-4 py-3 text-[14px] text-white/40 focus:border-[var(--color-accent)]/40 focus:outline-none transition-colors appearance-none" defaultValue="">
+                <input name="phone" aria-label="Telefon" type="tel" placeholder="Telefon" className="w-full bg-[#0d1220] border border-[var(--color-border)] px-4 py-3 text-[14px] text-white placeholder:text-white/20 focus:border-[var(--color-accent)]/40 focus:outline-none transition-colors" />
+                <select aria-label="Hizmet" name="subject" className="w-full bg-[#0d1220] border border-[var(--color-border)] px-4 py-3 text-[14px] text-white/40 focus:border-[var(--color-accent)]/40 focus:outline-none transition-colors appearance-none" defaultValue="">
                   <option value="" disabled>Hizmet Seçin</option>
                   {megaServices.map((s) => (
                     <option key={s.href} value={s.title}>{s.title}</option>
                   ))}
                   <option value="Diğer">Diğer</option>
                 </select>
-                <textarea rows={3} placeholder="Projeniz hakkında kısa bilgi..." className="w-full bg-[#0d1220] border border-[var(--color-border)] px-4 py-3 text-[14px] text-white placeholder:text-white/20 focus:border-[var(--color-accent)]/40 focus:outline-none transition-colors resize-none" />
+                <textarea name="message" required aria-label="Mesaj" rows={3} placeholder="Projeniz hakkında kısa bilgi..." className="w-full bg-[#0d1220] border border-[var(--color-border)] px-4 py-3 text-[14px] text-white placeholder:text-white/20 focus:border-[var(--color-accent)]/40 focus:outline-none transition-colors resize-none" />
                 <button type="submit" className="w-full py-3.5 bg-[var(--color-accent)] text-black text-[13px] uppercase tracking-[0.2em] font-semibold hover:bg-[var(--color-accent-light)] transition-all duration-300 flex items-center justify-center gap-2">
                   <Send size={14} />
-                  Gönder
+                  WhatsApp ile gönder
                 </button>
+                <p className="text-white/60 text-sm leading-relaxed">Mesajınız WhatsApp’ta hazırlanır. Göndermek için WhatsApp’taki gönder düğmesine basın.</p>
+                {whatsappUrl && <p role="status" className="text-sm text-white/80">WhatsApp açılmadıysa veya yeniden açmak için: <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="underline text-[var(--color-accent)]">WhatsApp’ı aç</a></p>}
               </form>
             </motion.div>
           </motion.div>

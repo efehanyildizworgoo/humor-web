@@ -21,6 +21,8 @@ export default async function IletisimPage() {
   const [settings, services, c] = await Promise.all([
     readSettings([
       "contact.phone",
+      "contact.whatsapp",
+      "whatsapp",
       "contact.email",
       "contact.address",
       "social.instagram",
@@ -34,6 +36,7 @@ export default async function IletisimPage() {
 
   const serviceOptions = services.map((s) => ({ value: s.title, label: s.title }));
   const contact = {
+    whatsapp: (settings["contact.whatsapp"] as string) || (settings["whatsapp"] as string) || undefined,
     phone: (settings["contact.phone"] as string) || undefined,
     email: (settings["contact.email"] as string) || undefined,
     address: (settings["contact.address"] as string) || undefined,

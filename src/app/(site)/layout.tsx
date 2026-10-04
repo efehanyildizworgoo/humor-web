@@ -80,6 +80,7 @@ export default async function SiteLayout({
     readSettings([
       "contact.phone",
       "contact.whatsapp",
+      "whatsapp",
       "contact.email",
       "contact.address",
       "social.instagram",
@@ -130,7 +131,7 @@ export default async function SiteLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Navbar navLinks={navLinks} megaServices={megaServices} logoUrl={logoUrl} siteName={siteName} />
+      <Navbar whatsapp={(settings["contact.whatsapp"] as string) || (settings["whatsapp"] as string) || (settings["contact.phone"] as string)} navLinks={navLinks} megaServices={megaServices} logoUrl={logoUrl} siteName={siteName} />
       <main>{children}</main>
       <Footer
         navLinks={navLinks}
