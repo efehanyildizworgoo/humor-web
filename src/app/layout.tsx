@@ -4,6 +4,8 @@ import "./globals.css";
 import { getPageContent } from "@/lib/pageContent";
 import { readSettings } from "@/lib/settings";
 
+export const dynamic = "force-dynamic";
+
 const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin", "latin-ext"],
