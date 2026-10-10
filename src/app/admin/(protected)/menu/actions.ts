@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { navItems, footerLinks, services } from "@/lib/db/schema";
 import { eq, asc, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { assertFormSize } from "@/lib/action-security";
 import { requireSession } from "@/lib/auth";
 
 function revalidateSite() {
@@ -18,6 +19,7 @@ async function nextNavOrder(): Promise<number> {
 
 export async function addNavAction(formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const label = String(formData.get("label") ?? "").trim();
   const href = String(formData.get("href") ?? "").trim();
   if (!label || !href) return { error: "Etiket ve link gerekli." };
@@ -27,6 +29,7 @@ export async function addNavAction(formData: FormData) {
 }
 export async function updateNavAction(id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const label = String(formData.get("label") ?? "").trim();
   const href = String(formData.get("href") ?? "").trim();
   if (!label || !href) return { error: "Etiket ve link gerekli." };
@@ -67,6 +70,7 @@ async function nextFooterOrder(section: string): Promise<number> {
 
 export async function addFooterAction(formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const section = String(formData.get("section") ?? "").trim();
   const label = String(formData.get("label") ?? "").trim();
   const href = String(formData.get("href") ?? "").trim();
@@ -77,6 +81,7 @@ export async function addFooterAction(formData: FormData) {
 }
 export async function updateFooterAction(id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const section = String(formData.get("section") ?? "").trim();
   const label = String(formData.get("label") ?? "").trim();
   const href = String(formData.get("href") ?? "").trim();
@@ -118,6 +123,7 @@ export async function moveFooterAction(id: number, dir: "up" | "down") {
 // Boş bırakılırsa sitede hizmet başlığına düşer (bkz. (site)/layout.tsx).
 export async function updateMegaLabelAction(id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const menuLabel = String(formData.get("menuLabel") ?? "").trim();
   await db.update(services).set({ menuLabel }).where(eq(services.id, id));
   revalidatePath("/admin/menu");

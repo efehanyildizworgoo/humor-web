@@ -11,6 +11,7 @@ import { eq, sql, and, ne } from "drizzle-orm";
 import { asc } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { assertFormSize } from "@/lib/action-security";
 import { requireSession } from "@/lib/auth";
 import { sanitizeRichHtml, htmlToPlainText } from "@/lib/sanitize";
 
@@ -43,6 +44,7 @@ export async function createPostAction(
   formData: FormData,
 ): Promise<{ error?: string }> {
   await requireSession();
+  assertFormSize(formData);
   const title = String(formData.get("title") ?? "").trim();
   let slug = String(formData.get("slug") ?? "").trim();
   if (!title) return { error: "Başlık gerekli." };
@@ -74,6 +76,7 @@ export async function updatePostAction(
   formData: FormData,
 ): Promise<{ error?: string; ok?: boolean }> {
   await requireSession();
+  assertFormSize(formData);
   const title = String(formData.get("title") ?? "").trim();
   let slug = String(formData.get("slug") ?? "").trim();
   if (!title) return { error: "Başlık gerekli." };
@@ -160,6 +163,7 @@ export async function togglePostPublishedAction(id: number): Promise<void> {
 // ============ CATEGORIES ============
 export async function addCategoryAction(formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const name = String(formData.get("name") ?? "").trim();
   let slug = String(formData.get("slug") ?? "").trim();
   if (!name) return { error: "İsim gerekli." };
@@ -180,6 +184,7 @@ export async function addCategoryAction(formData: FormData) {
 }
 export async function updateCategoryAction(id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const name = String(formData.get("name") ?? "").trim();
   let slug = String(formData.get("slug") ?? "").trim();
   if (!name) return { error: "İsim gerekli." };
@@ -221,6 +226,7 @@ export async function moveCategoryAction(id: number, dir: "up" | "down") {
 // ============ TAGS ============
 export async function addTagAction(formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const name = String(formData.get("name") ?? "").trim();
   let slug = String(formData.get("slug") ?? "").trim();
   if (!name) return { error: "İsim gerekli." };
@@ -236,6 +242,7 @@ export async function addTagAction(formData: FormData) {
 }
 export async function updateTagAction(id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const name = String(formData.get("name") ?? "").trim();
   let slug = String(formData.get("slug") ?? "").trim();
   if (!name) return { error: "İsim gerekli." };

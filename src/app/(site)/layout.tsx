@@ -129,7 +129,7 @@ export default async function SiteLayout({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
       <Navbar whatsapp={(settings["contact.whatsapp"] as string) || (settings["whatsapp"] as string) || (settings["contact.phone"] as string)} navLinks={navLinks} megaServices={megaServices} logoUrl={logoUrl} siteName={siteName} />
       <main>{children}</main>

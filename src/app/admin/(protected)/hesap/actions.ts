@@ -1,4 +1,5 @@
 "use server";
+import { allowAttempt, assertFormSize } from "@/lib/action-security";
 
 import { db } from "@/lib/db";
 import { adminUsers } from "@/lib/db/schema";
@@ -25,12 +26,15 @@ export async function updateAccountAction(
   formData: FormData,
 ): Promise<AccountState> {
   const session = await requireSession();
+  assertFormSize(formData,4096);
+  if(!await allowAttempt("account",8))return {error:"Çok fazla deneme. Lütfen daha sonra tekrar deneyin."};
 
   const currentPassword = String(formData.get("currentPassword") ?? "");
   const newEmail = String(formData.get("email") ?? "").trim().toLowerCase();
   const newPassword = String(formData.get("newPassword") ?? "");
   const confirmPassword = String(formData.get("confirmPassword") ?? "");
 
+  if (newEmail.length>255 || currentPassword.length>256 || Buffer.byteLength(newPassword,"utf8")>72) return {error:"E-posta veya şifre çok uzun."};
   if (!currentPassword) {
     return { error: "Mevcut şifren gerekli.", field: "currentPassword" };
   }
@@ -92,8 +96,8 @@ export async function updateAccountAction(
   await db.update(adminUsers).set(updates).where(eq(adminUsers.id, admin.id));
 
   // If email changed, refresh the session cookie so it carries the new claim.
-  if (updates.email) {
-    const token = await signSession({ uid: admin.id, email: updates.email });
+  if (updates.email || updates.passwordHash) {
+    const token = await signSession({ uid: admin.id, email: updates.email ?? admin.email });
     await setSessionCookie(token);
   }
 

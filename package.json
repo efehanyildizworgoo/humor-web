@@ -11,26 +11,28 @@
     "db:migrate": "tsx scripts/migrate.ts",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "db:seed": "tsx scripts/seed.ts"
+    "db:seed": "tsx scripts/seed.ts",
+    "test:security": "node --conditions=react-server --import tsx --test scripts/security.test.ts"
   },
   "dependencies": {
-    "@tiptap/extension-image": "^3.23.6",
-    "@tiptap/extension-link": "^3.23.6",
-    "@tiptap/extension-placeholder": "^3.23.6",
-    "@tiptap/extension-underline": "^3.23.6",
-    "@tiptap/react": "^3.23.6",
-    "@tiptap/starter-kit": "^3.23.6",
+    "@tiptap/extension-image": "3.31.4",
+    "@tiptap/extension-link": "3.31.4",
+    "@tiptap/extension-placeholder": "3.31.4",
+    "@tiptap/extension-underline": "3.31.4",
+    "@tiptap/react": "3.31.4",
+    "@tiptap/starter-kit": "3.31.4",
     "bcryptjs": "^3.0.3",
     "drizzle-orm": "^0.45.2",
     "framer-motion": "^12.38.0",
     "jose": "^6.2.3",
     "lucide-react": "^1.7.0",
-    "next": "16.2.2",
+    "next": "16.4.0",
     "pg": "^8.21.0",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "sanitize-html": "^2.17.4",
-    "server-only": "^0.0.1"
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "sanitize-html": "2.17.7",
+    "server-only": "^0.0.1",
+    "sharp": "0.35.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -43,9 +45,18 @@
     "dotenv": "^17.4.2",
     "drizzle-kit": "^0.31.10",
     "eslint": "^9",
-    "eslint-config-next": "16.2.2",
+    "eslint-config-next": "16.4.0",
     "tailwindcss": "^4",
     "tsx": "^4.22.3",
     "typescript": "^5"
+  },
+  "overrides": {
+    "postcss": "8.5.29",
+    "postcss-selector-parser": "7.1.6",
+    "fast-uri": "3.1.8",
+    "@tiptap/core": "3.31.4",
+    "@tiptap/pm": "3.31.4",
+    "@tiptap/extension-bubble-menu": "3.31.4",
+    "@tiptap/extension-floating-menu": "3.31.4"
   }
 }

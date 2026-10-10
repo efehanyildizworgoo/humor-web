@@ -40,6 +40,7 @@ export default function RichEditor({
     immediatelyRender: false,
     extensions: [
       StarterKit.configure({
+        link: false, underline: false,
         heading: { levels: [2, 3, 4] },
       }),
       Underline,

@@ -14,6 +14,7 @@ import {
 import { eq, asc, sql, and, ne } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { assertFormSize } from "@/lib/action-security";
 import { requireSession } from "@/lib/auth";
 import { sanitizeRichHtml } from "@/lib/sanitize";
 
@@ -46,6 +47,7 @@ export async function createServiceAction(
   formData: FormData,
 ): Promise<{ error?: string }> {
   await requireSession();
+  assertFormSize(formData);
   const title = String(formData.get("title") ?? "").trim();
   let slug = String(formData.get("slug") ?? "").trim();
   if (!title) return { error: "Başlık gerekli." };
@@ -83,6 +85,7 @@ export async function updateServiceAction(
   formData: FormData,
 ): Promise<{ error?: string; ok?: boolean }> {
   await requireSession();
+  assertFormSize(formData);
   const title = String(formData.get("title") ?? "").trim();
   let slug = String(formData.get("slug") ?? "").trim();
   if (!title) return { error: "Başlık gerekli." };
@@ -196,6 +199,7 @@ async function getServiceSlug(serviceId: number): Promise<string | undefined> {
 // ============ keywords ============
 export async function addKeywordAction(serviceId: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const keyword = String(formData.get("keyword") ?? "").trim();
   if (!keyword) return { error: "Anahtar kelime boş olamaz." };
   const order = await nextOrder(serviceKeywords, serviceId);
@@ -205,6 +209,7 @@ export async function addKeywordAction(serviceId: number, formData: FormData) {
 }
 export async function updateKeywordAction(serviceId: number, id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const keyword = String(formData.get("keyword") ?? "").trim();
   if (!keyword) return { error: "Boş olamaz." };
   await db.update(serviceKeywords).set({ keyword }).where(eq(serviceKeywords.id, id));
@@ -227,6 +232,7 @@ export async function moveKeywordAction(serviceId: number, id: number, dir: "up"
 // ============ idealFor ============
 export async function addIdealForAction(serviceId: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const item = String(formData.get("item") ?? "").trim();
   if (!item) return { error: "Boş olamaz." };
   const order = await nextOrder(serviceIdealFor, serviceId);
@@ -236,6 +242,7 @@ export async function addIdealForAction(serviceId: number, formData: FormData) {
 }
 export async function updateIdealForAction(serviceId: number, id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const item = String(formData.get("item") ?? "").trim();
   if (!item) return { error: "Boş olamaz." };
   await db.update(serviceIdealFor).set({ item }).where(eq(serviceIdealFor.id, id));
@@ -258,6 +265,7 @@ export async function moveIdealForAction(serviceId: number, id: number, dir: "up
 // ============ features (title, text) ============
 export async function addFeatureAction(serviceId: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const title = String(formData.get("title") ?? "").trim();
   const text = String(formData.get("text") ?? "").trim();
   if (!title || !text) return { error: "Başlık ve açıklama gerekli." };
@@ -268,6 +276,7 @@ export async function addFeatureAction(serviceId: number, formData: FormData) {
 }
 export async function updateFeatureAction(serviceId: number, id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const title = String(formData.get("title") ?? "").trim();
   const text = String(formData.get("text") ?? "").trim();
   if (!title || !text) return { error: "Başlık ve açıklama gerekli." };
@@ -291,6 +300,7 @@ export async function moveFeatureAction(serviceId: number, id: number, dir: "up"
 // ============ process (step, desc) ============
 export async function addProcessAction(serviceId: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const step = String(formData.get("step") ?? "").trim();
   const desc = String(formData.get("desc") ?? "").trim();
   if (!step || !desc) return { error: "Adım ve açıklama gerekli." };
@@ -301,6 +311,7 @@ export async function addProcessAction(serviceId: number, formData: FormData) {
 }
 export async function updateProcessAction(serviceId: number, id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const step = String(formData.get("step") ?? "").trim();
   const desc = String(formData.get("desc") ?? "").trim();
   if (!step || !desc) return { error: "Adım ve açıklama gerekli." };
@@ -324,6 +335,7 @@ export async function moveProcessAction(serviceId: number, id: number, dir: "up"
 // ============ faqs (q, a) ============
 export async function addFaqAction(serviceId: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const q = String(formData.get("q") ?? "").trim();
   const a = String(formData.get("a") ?? "").trim();
   if (!q || !a) return { error: "Soru ve cevap gerekli." };
@@ -334,6 +346,7 @@ export async function addFaqAction(serviceId: number, formData: FormData) {
 }
 export async function updateFaqAction(serviceId: number, id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const q = String(formData.get("q") ?? "").trim();
   const a = String(formData.get("a") ?? "").trim();
   if (!q || !a) return { error: "Soru ve cevap gerekli." };
@@ -357,6 +370,7 @@ export async function moveFaqAction(serviceId: number, id: number, dir: "up" | "
 // ============ gallery (imageUrl) ============
 export async function addGalleryAction(serviceId: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const imageUrl = String(formData.get("imageUrl") ?? "").trim();
   if (!imageUrl) return { error: "Görsel URL'i gerekli." };
   const order = await nextOrder(serviceGallery, serviceId);
@@ -366,6 +380,7 @@ export async function addGalleryAction(serviceId: number, formData: FormData) {
 }
 export async function updateGalleryAction(serviceId: number, id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const imageUrl = String(formData.get("imageUrl") ?? "").trim();
   if (!imageUrl) return { error: "URL boş olamaz." };
   await db.update(serviceGallery).set({ imageUrl }).where(eq(serviceGallery.id, id));
@@ -388,6 +403,7 @@ export async function moveGalleryAction(serviceId: number, id: number, dir: "up"
 // ============ testimonials (name, title, text) ============
 export async function addServiceTestimonialAction(serviceId: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const name = String(formData.get("name") ?? "").trim();
   const text = String(formData.get("text") ?? "").trim();
   if (!name || !text) return { error: "İsim ve yorum gerekli." };
@@ -404,6 +420,7 @@ export async function addServiceTestimonialAction(serviceId: number, formData: F
 }
 export async function updateServiceTestimonialAction(serviceId: number, id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const name = String(formData.get("name") ?? "").trim();
   const text = String(formData.get("text") ?? "").trim();
   if (!name || !text) return { error: "İsim ve yorum gerekli." };

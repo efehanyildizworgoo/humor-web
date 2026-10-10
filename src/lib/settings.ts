@@ -25,8 +25,9 @@ export async function readSettings(keys: string[]): Promise<Record<string, Setti
 export async function writeSettings(entries: Record<string, SettingValue>) {
   const items = Object.entries(entries);
   if (items.length === 0) return;
+  await db.transaction(async tx => {
   for (const [key, value] of items) {
-    await db
+    await tx
       .insert(siteSettings)
       .values({ key, value: value as unknown as object, updatedAt: new Date() })
       .onConflictDoUpdate({
@@ -34,4 +35,5 @@ export async function writeSettings(entries: Record<string, SettingValue>) {
         set: { value: value as unknown as object, updatedAt: new Date() },
       });
   }
+  });
 }

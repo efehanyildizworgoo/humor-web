@@ -10,6 +10,7 @@ import {
 import { eq, asc, sql, and, ne } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { assertFormSize } from "@/lib/action-security";
 import { requireSession } from "@/lib/auth";
 import { sanitizeRichHtml } from "@/lib/sanitize";
 
@@ -40,6 +41,7 @@ export async function createProjectAction(
   formData: FormData,
 ): Promise<{ error?: string }> {
   await requireSession();
+  assertFormSize(formData);
   const title = String(formData.get("title") ?? "").trim();
   let slug = String(formData.get("slug") ?? "").trim();
   if (!title) return { error: "Başlık gerekli." };
@@ -77,6 +79,7 @@ export async function updateProjectAction(
   formData: FormData,
 ): Promise<{ error?: string; ok?: boolean }> {
   await requireSession();
+  assertFormSize(formData);
   const title = String(formData.get("title") ?? "").trim();
   let slug = String(formData.get("slug") ?? "").trim();
   if (!title) return { error: "Başlık gerekli." };
@@ -179,6 +182,7 @@ async function getProjectSlug(projectId: number): Promise<string | undefined> {
 // ============ services (chips) ============
 export async function addProjectServiceAction(projectId: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const name = String(formData.get("name") ?? "").trim();
   if (!name) return { error: "Boş olamaz." };
   const order = await nextOrder(projectServices, projectId);
@@ -188,6 +192,7 @@ export async function addProjectServiceAction(projectId: number, formData: FormD
 }
 export async function updateProjectServiceAction(projectId: number, id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const name = String(formData.get("name") ?? "").trim();
   if (!name) return { error: "Boş olamaz." };
   await db.update(projectServices).set({ name }).where(eq(projectServices.id, id));
@@ -210,6 +215,7 @@ export async function moveProjectServiceAction(projectId: number, id: number, di
 // ============ results ============
 export async function addProjectResultAction(projectId: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const text = String(formData.get("text") ?? "").trim();
   if (!text) return { error: "Boş olamaz." };
   const order = await nextOrder(projectResults, projectId);
@@ -219,6 +225,7 @@ export async function addProjectResultAction(projectId: number, formData: FormDa
 }
 export async function updateProjectResultAction(projectId: number, id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const text = String(formData.get("text") ?? "").trim();
   if (!text) return { error: "Boş olamaz." };
   await db.update(projectResults).set({ text }).where(eq(projectResults.id, id));
@@ -241,6 +248,7 @@ export async function moveProjectResultAction(projectId: number, id: number, dir
 // ============ gallery ============
 export async function addProjectGalleryAction(projectId: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const imageUrl = String(formData.get("imageUrl") ?? "").trim();
   if (!imageUrl) return { error: "URL gerekli." };
   const order = await nextOrder(projectGallery, projectId);
@@ -250,6 +258,7 @@ export async function addProjectGalleryAction(projectId: number, formData: FormD
 }
 export async function updateProjectGalleryAction(projectId: number, id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const imageUrl = String(formData.get("imageUrl") ?? "").trim();
   if (!imageUrl) return { error: "URL boş olamaz." };
   await db.update(projectGallery).set({ imageUrl }).where(eq(projectGallery.id, id));

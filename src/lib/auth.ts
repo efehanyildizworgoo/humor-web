@@ -1,41 +1,23 @@
 import "server-only";
-import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { cache } from "react";
 
 export const SESSION_COOKIE = "humor_admin_session";
-const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7; // 7 days
-
-function getSecret(): Uint8Array {
-  const secret = process.env.JWT_SECRET;
-  if (!secret || secret.length < 16) {
-    throw new Error("JWT_SECRET must be set (min 16 chars).");
-  }
-  return new TextEncoder().encode(secret);
-}
-
-export type SessionPayload = {
-  uid: number;
-  email: string;
-};
-
+import { db } from "@/lib/db";
+import { adminUsers } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
+import { credentialVersion, signToken, verifyToken, SESSION_TTL_SECONDS } from "./session-token";
+export type SessionPayload = { uid: number; email: string };
 export async function signSession(payload: SessionPayload): Promise<string> {
-  return await new SignJWT({ ...payload })
-    .setProtectedHeader({ alg: "HS256" })
-    .setIssuedAt()
-    .setExpirationTime(`${SESSION_TTL_SECONDS}s`)
-    .sign(getSecret());
+ const [user]=await db.select().from(adminUsers).where(eq(adminUsers.id,payload.uid)).limit(1);
+ if(!user || user.email!==payload.email) throw new Error("Unauthorized");
+ return signToken(user.id,user.email,user.passwordHash);
 }
-
-export async function verifySession(token: string | undefined): Promise<SessionPayload | null> {
-  if (!token) return null;
-  try {
-    const { payload } = await jwtVerify(token, getSecret());
-    if (typeof payload.uid !== "number" || typeof payload.email !== "string") return null;
-    return { uid: payload.uid, email: payload.email };
-  } catch {
-    return null;
-  }
+export async function verifySession(token:string|undefined):Promise<SessionPayload|null> {
+ try { const p=await verifyToken(token);if(!p)return null;
+ const [user]=await db.select().from(adminUsers).where(eq(adminUsers.id,p.uid)).limit(1);
+ if(!user || user.email!==p.email || credentialVersion(user.passwordHash)!==p.cv)return null;
+ return {uid:user.id,email:user.email}; } catch {return null;}
 }
 
 export const getSession = cache(async (): Promise<SessionPayload | null> => {

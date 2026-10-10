@@ -1,5 +1,6 @@
 "use server";
 
+import { allowAttempt, assertFormSize } from "@/lib/action-security";
 import { db } from "@/lib/db";
 import { adminUsers } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -13,10 +14,13 @@ export async function loginAction(
   _prev: LoginState,
   formData: FormData,
 ): Promise<LoginState> {
+  try { assertFormSize(formData, 4096); } catch { return {error:"Form çok büyük."}; }
+  if(!await allowAttempt("login",12)) return {error:"Çok fazla deneme. Lütfen daha sonra tekrar deneyin."};
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
   const next = String(formData.get("next") ?? "/admin");
 
+  if (email.length>255 || password.length>256) return {error:"Geçersiz e-posta veya şifre."};
   if (!email || !password) {
     return { error: "E-posta ve şifre gerekli." };
   }

@@ -1,0 +1,10 @@
+import {test} from "node:test";
+import assert from "node:assert/strict";
+import {signToken,verifyToken,credentialVersion} from "../src/lib/session-token";
+import {assertFormSize} from "../src/lib/action-security";
+import {validateImage} from "../src/lib/image-validation";
+import sharp from "sharp";
+process.env.JWT_SECRET="isolated-unit-test-secret-at-least-32-characters";
+test("session claims, tampering and credential binding",async()=>{const t=await signToken(1,"qa@maintenance.invalid","hash1");const p=await verifyToken(t);assert.equal(p?.uid,1);assert.equal(p?.cv,credentialVersion("hash1"));assert.notEqual(p?.cv,credentialVersion("hash2"));assert.equal(await verifyToken(t+"x"),null);assert.equal(await verifyToken("x".repeat(4097)),null);assert.equal(await verifyToken(await signToken(-1,"qa@maintenance.invalid","hash")),null);});
+test("actual form bytes and file bytes are bounded",()=>{const f=new FormData();f.set("text","a".repeat(5000));assert.throws(()=>assertFormSize(f,4096));assert.doesNotThrow(()=>assertFormSize(f,6000));f.set("file",new File([Buffer.alloc(6000)],"qa.png"));assert.throws(()=>assertFormSize(f,6000));});
+test("image validation rejects fake types and rasterizes SVG",async()=>{const png=await sharp({create:{width:2,height:2,channels:3,background:"red"}}).png().toBuffer();assert.equal((await validateImage(png,"image/png")).mime,"image/png");await assert.rejects(validateImage(Buffer.from("<script>alert(1)</script>"),"image/png"));await assert.rejects(validateImage(png,"image/jpeg"));const svg=Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="blue"/></svg>');const r=await validateImage(svg,"image/svg+xml");assert.equal(r.mime,"image/png");assert.equal((await sharp(r.bytes).metadata()).format,"png");});

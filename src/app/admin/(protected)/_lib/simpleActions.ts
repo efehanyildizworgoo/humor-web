@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { testimonials, faqs, stats } from "@/lib/db/schema";
 import { eq, asc, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { assertFormSize } from "@/lib/action-security";
 import { requireSession } from "@/lib/auth";
 
 function revalidateAll() {
@@ -35,6 +36,7 @@ async function moveFlat(table: FlatTable, id: number, direction: "up" | "down") 
 // ============ testimonials ============
 export async function addTestimonialAction(formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const name = String(formData.get("name") ?? "").trim();
   const text = String(formData.get("text") ?? "").trim();
   if (!name || !text) return { error: "İsim ve yorum gerekli." };
@@ -51,6 +53,7 @@ export async function addTestimonialAction(formData: FormData) {
 }
 export async function updateTestimonialAction(id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const name = String(formData.get("name") ?? "").trim();
   const text = String(formData.get("text") ?? "").trim();
   if (!name || !text) return { error: "İsim ve yorum gerekli." };
@@ -87,6 +90,7 @@ export async function toggleTestimonialPublishedAction(id: number) {
 // ============ faqs ============
 export async function addFaqAction(formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const q = String(formData.get("q") ?? "").trim();
   const a = String(formData.get("a") ?? "").trim();
   if (!q || !a) return { error: "Soru ve cevap gerekli." };
@@ -97,6 +101,7 @@ export async function addFaqAction(formData: FormData) {
 }
 export async function updateFaqAction(id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const q = String(formData.get("q") ?? "").trim();
   const a = String(formData.get("a") ?? "").trim();
   if (!q || !a) return { error: "Soru ve cevap gerekli." };
@@ -120,6 +125,7 @@ export async function moveFaqAction(id: number, dir: "up" | "down") {
 // ============ stats ============
 export async function addStatAction(formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const label = String(formData.get("label") ?? "").trim();
   const value = String(formData.get("value") ?? "").trim();
   if (!label || !value) return { error: "Etiket ve değer gerekli." };
@@ -130,6 +136,7 @@ export async function addStatAction(formData: FormData) {
 }
 export async function updateStatAction(id: number, formData: FormData) {
   await requireSession();
+  assertFormSize(formData);
   const label = String(formData.get("label") ?? "").trim();
   const value = String(formData.get("value") ?? "").trim();
   if (!label || !value) return { error: "Etiket ve değer gerekli." };

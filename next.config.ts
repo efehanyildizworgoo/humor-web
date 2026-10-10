@@ -4,6 +4,7 @@ import path from "node:path";
 const nextConfig: NextConfig = {
   output: "standalone",
   experimental: {
+    proxyClientMaxBodySize: "13mb",
     serverActions: {
       // Uploads go through a Server Action; the default 1 MB body limit made
       // every image over 1 MB throw (413) and crash the admin page, even
@@ -15,6 +16,7 @@ const nextConfig: NextConfig = {
   // Pin trace root to the project so standalone layout is flat
   // (.next/standalone/node_modules/...) and not nested under absolute paths.
   outputFileTracingRoot: path.join(__dirname),
+  async headers() { return [{ source: "/uploads/:path*", headers: [{key:"X-Content-Type-Options",value:"nosniff"},{key:"Content-Security-Policy",value:"sandbox; default-src 'none'; style-src 'unsafe-inline'"}] }]; },
   images: {
     unoptimized: true,
     remotePatterns: [

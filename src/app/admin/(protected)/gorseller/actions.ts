@@ -1,11 +1,13 @@
 "use server";
 
+import { validateImage } from "@/lib/image-validation";
 import path from "node:path";
 import { promises as fs } from "node:fs";
 import { db } from "@/lib/db";
 import { uploads } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { assertFormSize } from "@/lib/action-security";
 import { requireSession } from "@/lib/auth";
 import {
   ALLOWED_MIME,
@@ -21,6 +23,7 @@ export type UploadResult =
 
 export async function uploadImageAction(formData: FormData): Promise<UploadResult> {
   await requireSession();
+  assertFormSize(formData, 11*1024*1024);
 
   const file = formData.get("file");
   if (!(file instanceof File)) {
@@ -34,12 +37,13 @@ export async function uploadImageAction(formData: FormData): Promise<UploadResul
     return { ok: false, error: `Desteklenmeyen format: ${file.type}` };
   }
 
+  let image: Awaited<ReturnType<typeof validateImage>>;
+  try { image=await validateImage(Buffer.from(await file.arrayBuffer()),file.type); } catch { return {ok:false,error:"Geçerli bir görsel yükleyin."}; }
   const dir = await ensureUploadDir();
-  const filename = safeFilename(file.name, file.type);
+  const filename = safeFilename(file.name, image.mime);
   const fullPath = path.join(dir, filename);
 
-  const buf = Buffer.from(await file.arrayBuffer());
-  await fs.writeFile(fullPath, buf);
+  await fs.writeFile(fullPath, image.bytes, {flag:"wx", mode:0o644});
 
   const url = `${PUBLIC_PREFIX}/${filename}`;
   const [row] = await db
@@ -47,8 +51,8 @@ export async function uploadImageAction(formData: FormData): Promise<UploadResul
     .values({
       filename,
       originalName: file.name,
-      mimeType: file.type,
-      size: file.size,
+      mimeType: image.mime,
+      size: image.bytes.length,
       url,
     })
     .returning({ id: uploads.id });
@@ -63,6 +67,7 @@ export async function deleteUploadAction(id: number) {
   if (!row) return;
 
   const dir = await ensureUploadDir();
+  if(path.basename(row.filename)!==row.filename || row.filename.includes("\\")) throw new Error("Invalid filename");
   const fullPath = path.join(dir, row.filename);
   try {
     await fs.unlink(fullPath);
